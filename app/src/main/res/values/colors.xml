@@ -6,6 +6,8 @@
     <color name="colorBackground">#FFFFFF</color>
     <color name="colorSurface">#F5F5F5</color> <!-- Light grey -->
     <color name="colorError">#B00020</color>
+    <color name="colorFormLabel">#7D8592</color>
+    <color name="blackTransparent">#80000000</color>
     <color name="colorSecondaryContainer">#FFFFFF</color>
     <color name="colorForm">#1A2C50CB</color>
     <color name="colorOnPrimary">#FFFFFF</color>

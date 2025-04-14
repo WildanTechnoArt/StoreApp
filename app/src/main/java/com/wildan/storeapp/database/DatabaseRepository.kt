@@ -25,15 +25,16 @@ class DatabaseRepository private constructor(private val dataDao: DataDao) {
     }
 
     fun getListCart(): LiveData<List<ProductResponse>> = dataDao.getAllCart()
+    fun getTotalItemCount(): LiveData<Int> = dataDao.getTotalItemCount()
 
     suspend fun addCart(data: ProductResponse) = dataDao.addCart(data)
 
     suspend fun removeCart(data: ProductResponse) = dataDao.removeCart(data)
 
-    fun checkIfAddCart(url: String) {
+    fun checkIfAddCart(id: String) {
         lastSource?.let { _isAddCart.removeSource(it) }
 
-        val source = dataDao.isProductCart(url)
+        val source = dataDao.isProductCart(id)
         lastSource = source
 
         _isAddCart.addSource(source) { cart ->

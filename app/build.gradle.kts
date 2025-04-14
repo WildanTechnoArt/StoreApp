@@ -63,6 +63,8 @@ dependencies {
     annotationProcessor(libs.androidx.room.compiler)
     implementation(libs.kotlinx.coroutines.android)
     implementation(libs.kotlinx.coroutines.core)
+    implementation(libs.github.razir.progressbutton)
+    implementation(libs.androidx.datastore)
     implementation(libs.androidx.vectordrawable)
     implementation(libs.github.bumptech.glide)
     implementation(libs.androidx.activity)

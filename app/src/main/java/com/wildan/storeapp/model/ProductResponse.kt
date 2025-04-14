@@ -16,10 +16,11 @@ data class ProductResponse(
     @ColumnInfo("id") var id: Int? = null,
     @ColumnInfo("title") var title: String? = null,
     @ColumnInfo("price") var price: Double? = null,
-    @ColumnInfo("description") var description: String? = null,
-    @ColumnInfo("category") var category: String? = null,
+    @SerializedName("description") var description: String? = null,
+    @SerializedName("category") var category: String? = null,
     @ColumnInfo("image") var image: String? = null,
-    @ColumnInfo("rating") var rating: Rating? = Rating()
+    @ColumnInfo("quantity") var count: Int? = null,
+    @SerializedName("rating") var rating: Rating? = Rating()
 ) : Parcelable
 
 @Parcelize

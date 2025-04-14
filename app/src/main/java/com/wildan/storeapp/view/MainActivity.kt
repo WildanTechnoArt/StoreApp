@@ -1,16 +1,22 @@
 package com.wildan.storeapp.view
 
+import android.content.Intent
 import android.os.Bundle
 import android.view.View
 import android.view.animation.TranslateAnimation
 import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
+import androidx.lifecycle.ViewModelProvider
+import androidx.lifecycle.lifecycleScope
 import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.wildan.storeapp.databinding.ActivityMainBinding
 import com.wildan.storeapp.utils.Constant
 import com.wildan.storeapp.utils.ViewBindingExt.viewBinding
+import com.wildan.storeapp.viewmodel.DatabaseViewModel
+import com.wildan.storeapp.viewmodel.LocalDataViewModelFactory
 import com.wildan.storeapp.viewmodel.ProductViewModel
+import kotlinx.coroutines.launch
 import kotlin.properties.Delegates
 
 class MainActivity : AppCompatActivity() {
@@ -19,6 +25,7 @@ class MainActivity : AppCompatActivity() {
     private var mAdapterProduct by Delegates.notNull<ProductAdapter>()
     private var mAdapterCategory by Delegates.notNull<CategoryAdapter>()
     private val viewModel: ProductViewModel by viewModels()
+    private lateinit var viewModelDatabase: DatabaseViewModel
     private lateinit var translateAnimation: TranslateAnimation
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -35,6 +42,11 @@ class MainActivity : AppCompatActivity() {
             fillAfter = true
             isFillEnabled = true
         }
+
+        val factory = LocalDataViewModelFactory.getInstance(this@MainActivity)
+
+        viewModelDatabase =
+            ViewModelProvider(this@MainActivity, factory)[DatabaseViewModel::class.java]
 
         mAdapterProduct = ProductAdapter()
         mAdapterCategory = CategoryAdapter()
@@ -54,6 +66,9 @@ class MainActivity : AppCompatActivity() {
         swipeRefresh.setOnRefreshListener {
             requestContent()
         }
+        btnCart.setOnClickListener {
+            startActivity(Intent(this@MainActivity, CartActivity::class.java))
+        }
     }
 
     private fun requestContent(){
@@ -71,14 +86,20 @@ class MainActivity : AppCompatActivity() {
             }
             getCategoryList.observe(this@MainActivity) { data ->
                 mAdapterCategory.submitList(data)
-//                tvCartBadge.visibility = if(data.isNotEmpty()) View.VISIBLE else View.GONE
-//                tvCartBadge.text = data.size.toString()
             }
             error.observe(this@MainActivity) {
                 Constant.handleErrorApi(this@MainActivity, it)
             }
             loading.observe(this@MainActivity) {
                 swipeRefresh.isRefreshing = it
+            }
+        }
+
+        viewModelDatabase.getTotalItemCount.observe(this@MainActivity) { quantity ->
+            lifecycleScope.launch {
+                val itemCount = quantity > 0
+                tvCartBadge.visibility = if(itemCount) View.VISIBLE else View.GONE
+                tvCartBadge.text = quantity.toString()
             }
         }
     }

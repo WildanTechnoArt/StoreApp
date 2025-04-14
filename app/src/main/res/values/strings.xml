@@ -26,6 +26,8 @@
     <string name="search_product_name">Search Product Name</string>
     <string name="cart">Cart</string>
     <string name="show_cart">Show Bookmark</string>
-    <string name="nothing_is_cart">Nothing is Cart</string>
+    <string name="nothing_is_cart">No products in the cart</string>
     <string name="info_no_product">No products can be displayed</string>
+    <string name="label_remember">Remember me</string>
+    <string name="message_if_login_empty">Username or Password cannot be empty</string>
 </resources>
