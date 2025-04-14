@@ -40,8 +40,7 @@
             android:id="@+id/inputUsername"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginTop="10dp"
-            android:inputType="number"
+            android:inputType="text"
             android:paddingTop="@dimen/padding_form"
             android:paddingBottom="@dimen/padding_form" />
 
@@ -68,7 +67,6 @@
             android:id="@+id/inputPassword"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginTop="10dp"
             android:imeOptions="actionDone"
             android:inputType="textPassword"
             android:paddingTop="@dimen/padding_form"

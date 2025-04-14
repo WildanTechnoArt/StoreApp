@@ -3,6 +3,7 @@ package com.wildan.storeapp.network
 import com.wildan.storeapp.model.LoginRequest
 import com.wildan.storeapp.model.LoginResponse
 import com.wildan.storeapp.model.ProductResponse
+import com.wildan.storeapp.model.RegisterRequest
 import retrofit2.http.Body
 import retrofit2.http.GET
 import retrofit2.http.Headers
@@ -30,4 +31,10 @@ interface BaseApiService {
     suspend fun requestLogin(
         @Body body: LoginRequest
     ): LoginResponse
+
+    @Headers("Accept: application/json")
+    @POST("users")
+    suspend fun registerUser(
+        @Body body: RegisterRequest
+    ): RegisterRequest
 }

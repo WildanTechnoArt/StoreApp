@@ -8,6 +8,7 @@ import androidx.lifecycle.viewModelScope
 import com.wildan.storeapp.MyApp
 import com.wildan.storeapp.model.LoginRequest
 import com.wildan.storeapp.model.ProductResponse
+import com.wildan.storeapp.model.RegisterRequest
 import com.wildan.storeapp.network.RetrofitClient
 import com.wildan.storeapp.repository.ProductRepository
 import com.wildan.storeapp.utils.Constant
@@ -27,6 +28,9 @@ class ProductViewModel : ViewModel() {
 
     private val _getDataLogin = MutableLiveData<String?>()
     val getDataLogin: LiveData<String?> = _getDataLogin
+
+    private val _successRegister = MutableLiveData<String?>()
+    val successRegister: LiveData<String?> = _successRegister
 
     private val _getProductList = MutableLiveData<List<ProductResponse>>()
     val getProductList: LiveData<List<ProductResponse>> = _getProductList
@@ -82,6 +86,23 @@ class ProductViewModel : ViewModel() {
                         )
 
                         _getDataLogin.value = it.token
+                    }
+            } catch (e: Exception) {
+                errorHandle(e)
+            }
+        }
+    }
+
+    fun registerUser(body: RegisterRequest) {
+        viewModelScope.launch {
+            try {
+                repository.registerUser(body)
+                    .flowOn(Dispatchers.IO)
+                    .onStart { _loading.value = true }
+                    .onCompletion { _loading.postValue(false) }
+                    .catch { errorHandle(it) }
+                    .collect {
+                        _successRegister.value = "Register Success"
                     }
             } catch (e: Exception) {
                 errorHandle(e)
