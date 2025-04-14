@@ -1,5 +1,16 @@
-<?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <color name="black">#FF000000</color>
-    <color name="white">#FFFFFFFF</color>
+    <color name="colorPrimary">#4CAF50</color> <!-- Green -->
+    <color name="colorPrimaryVariant">#388E3C</color> <!-- Darker Green -->
+    <color name="colorSecondary">#FFC107</color> <!-- Amber for accents -->
+    <color name="colorSecondaryVariant">#FFA000</color>
+    <color name="colorBackground">#FFFFFF</color>
+    <color name="colorSurface">#F5F5F5</color> <!-- Light grey -->
+    <color name="colorError">#B00020</color>
+    <color name="colorSecondaryContainer">#FFFFFF</color>
+    <color name="colorForm">#1A2C50CB</color>
+    <color name="colorOnPrimary">#FFFFFF</color>
+    <color name="colorOnSecondary">#000000</color>
+    <color name="colorOnBackground">#000000</color>
+    <color name="colorOnSurface">#000000</color>
+    <color name="colorOnError">#FFFFFF</color>
 </resources>

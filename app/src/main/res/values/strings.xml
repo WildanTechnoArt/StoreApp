@@ -1,3 +1,31 @@
 <resources>
-    <string name="app_name">StoreApp</string>
+    <string name="app_name">Store App - Testing</string>
+    <string name="login">Log in</string>
+    <string name="username">Username</string>
+    <string name="password">Password</string>
+    <string name="product_name">Product Name</string>
+    <string name="product_price">Product Price</string>
+    <string name="product_description">Product Description</string>
+    <string name="add_to_cart">Add to Cart</string>
+    <string name="checkout">Checkout</string>
+    <string name="total">Total: </string>
+    <string name="logout">Logout</string>
+    <string name="label_home">Home</string>
+    <string name="label_cart">Cart</string>
+    <string name="label_profile">Profile</string>
+    <string name="host_nav_main">navigation</string>
+    <string name="product_image_desc">product_image</string>
+    <string name="request_none_data">.................</string>
+    <string name="message_if_disconnect">Not Connected to the Internet</string>
+    <string name="message_if_error">An error occurred, please try again</string>
+    <string name="message_if_not_data">No Result</string>
+    <string name="action_detail">Detail</string>
+    <string name="label_show_all">Show All</string>
+    <string name="image">image</string>
+    <string name="action_show_detail">Show Detail</string>
+    <string name="search_product_name">Search Product Name</string>
+    <string name="cart">Cart</string>
+    <string name="show_cart">Show Bookmark</string>
+    <string name="nothing_is_cart">Nothing is Cart</string>
+    <string name="info_no_product">No products can be displayed</string>
 </resources>
