@@ -1,9 +1,9 @@
-package com.wildan.storeapp.viewmodel
+package com.wildan.storeapp.ui.viewmodel
 
 import androidx.fragment.app.FragmentActivity
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
-import com.wildan.storeapp.database.DatabaseRepository
+import com.wildan.storeapp.data.database.DatabaseRepository
 
 class LocalDataViewModelFactory private constructor(private val repository: DatabaseRepository) :
     ViewModelProvider.Factory {

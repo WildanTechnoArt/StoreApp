@@ -2,7 +2,7 @@ package com.wildan.storeapp.repository
 
 import com.wildan.storeapp.model.LoginRequest
 import com.wildan.storeapp.model.RegisterRequest
-import com.wildan.storeapp.network.BaseApiService
+import com.wildan.storeapp.data.api.BaseApiService
 import kotlinx.coroutines.flow.flow
 
 class ProductRepository(private val baseApi: BaseApiService) {

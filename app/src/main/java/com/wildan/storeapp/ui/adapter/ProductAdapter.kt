@@ -1,4 +1,4 @@
-package com.wildan.storeapp.view
+package com.wildan.storeapp.ui.adapter
 
 import android.annotation.SuppressLint
 import android.content.Context
@@ -7,33 +7,27 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.appcompat.app.AppCompatActivity
+import androidx.recyclerview.widget.DiffUtil
+import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.wildan.storeapp.R
-import com.wildan.storeapp.databinding.ItemCartBinding
+import com.wildan.storeapp.databinding.ItemProductBinding
 import com.wildan.storeapp.model.ProductResponse
+import com.wildan.storeapp.ui.activity.DetailProductActivity
 import com.wildan.storeapp.utils.Constant
 
-class CartAdapter : RecyclerView.Adapter<CartAdapter.Holder>() {
-
-    private val dataList = mutableListOf<ProductResponse>() // Dataset adapter
-
-    @SuppressLint("NotifyDataSetChanged")
-    fun submitList(newData: List<ProductResponse>) {
-        dataList.clear()
-        dataList.addAll(newData)
-        notifyDataSetChanged()
-    }
+class ProductAdapter : ListAdapter<ProductResponse, ProductAdapter.Holder>(MyDiffCallback()) {
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): Holder {
         val binding =
-            ItemCartBinding.inflate(LayoutInflater.from(parent.context), parent, false)
+            ItemProductBinding.inflate(LayoutInflater.from(parent.context), parent, false)
         return Holder(binding)
     }
 
     @SuppressLint("SetTextI18n")
     override fun onBindViewHolder(holder: Holder, position: Int) {
-        val data = dataList[position]
+        val data = getItem(position)
         val context = holder.itemView.context
 
         with(holder.binding) {
@@ -41,10 +35,10 @@ class CartAdapter : RecyclerView.Adapter<CartAdapter.Holder>() {
             Glide.with(context)
                 .load(data.image)
                 .placeholder(R.drawable.baseline_image_100)
-                .into(imgProduct)
+                .into(imageProduct)
             tvProductName.text = productName
-            tvProductPrice.text = Constant.formatRupiah(data.price ?: 0.0)
-            tvProductQuantity.text = "Quantity: ${data.count} pcs"
+            tvProductPrice.text = Constant.formatRupiah(data?.price ?: 0.0)
+            tvRating.text = "${data.rating?.rate} (${data.rating?.count})"
 
             cardProduct.setOnClickListener {
                 toDetailFragment(
@@ -58,15 +52,26 @@ class CartAdapter : RecyclerView.Adapter<CartAdapter.Holder>() {
     private fun toDetailFragment(
         data: ProductResponse,
         activity: Class<out AppCompatActivity>,
-        context: Context
-    ) {
+        context: Context) {
         val bundle = Bundle().apply {
             putString(Constant.PRODUCT_ID, data.id.toString())
         }
         context.startActivity(Intent(context, activity).putExtras(bundle))
     }
 
-    override fun getItemCount(): Int = dataList.size
+    override fun getItemCount(): Int {
+        return currentList.size
+    }
 
-    class Holder(val binding: ItemCartBinding) : RecyclerView.ViewHolder(binding.root)
+    class MyDiffCallback : DiffUtil.ItemCallback<ProductResponse>() {
+        override fun areItemsTheSame(oldItem: ProductResponse, newItem: ProductResponse): Boolean {
+            return oldItem == newItem
+        }
+
+        override fun areContentsTheSame(oldItem: ProductResponse, newItem: ProductResponse): Boolean {
+            return oldItem == newItem
+        }
+    }
+
+    class Holder(val binding: ItemProductBinding) : RecyclerView.ViewHolder(binding.root)
 }

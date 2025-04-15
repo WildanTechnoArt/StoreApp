@@ -1,4 +1,4 @@
-package com.wildan.storeapp.view
+package com.wildan.storeapp.ui.activity
 
 import android.os.Bundle
 import android.widget.Toast
@@ -10,10 +10,10 @@ import com.wildan.storeapp.R
 import com.wildan.storeapp.databinding.ActivityDetailProductBinding
 import com.wildan.storeapp.model.ProductResponse
 import com.wildan.storeapp.utils.Constant
-import com.wildan.storeapp.utils.ViewBindingExt.viewBinding
-import com.wildan.storeapp.viewmodel.DatabaseViewModel
-import com.wildan.storeapp.viewmodel.LocalDataViewModelFactory
-import com.wildan.storeapp.viewmodel.ProductViewModel
+import com.wildan.storeapp.utils.extensions.ViewBindingExt.viewBinding
+import com.wildan.storeapp.ui.viewmodel.DatabaseViewModel
+import com.wildan.storeapp.ui.viewmodel.LocalDataViewModelFactory
+import com.wildan.storeapp.ui.viewmodel.ProductViewModel
 
 class DetailProductActivity : AppCompatActivity() {
 

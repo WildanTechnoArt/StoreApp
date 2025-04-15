@@ -1,4 +1,4 @@
-package com.wildan.storeapp.network
+package com.wildan.storeapp.data.api
 
 import com.wildan.storeapp.model.LoginRequest
 import com.wildan.storeapp.model.LoginResponse

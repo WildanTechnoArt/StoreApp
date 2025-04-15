@@ -1,4 +1,4 @@
-package com.wildan.storeapp.utils
+package com.wildan.storeapp.utils.extensions
 
 import android.view.LayoutInflater
 import androidx.activity.ComponentActivity

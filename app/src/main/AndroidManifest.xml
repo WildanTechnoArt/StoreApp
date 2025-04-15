@@ -17,19 +17,19 @@
         android:theme="@style/Theme.StoreApp"
         tools:targetApi="31">
         <activity
-            android:name=".view.RegisterActivity"
+            android:name=".ui.activity.RegisterActivity"
             android:exported="false" />
         <activity
-            android:name=".view.CartActivity"
+            android:name=".ui.activity.CartActivity"
             android:exported="false" />
         <activity
-            android:name=".view.CheckoutActivity"
+            android:name=".ui.activity.CheckoutActivity"
             android:exported="false" />
         <activity
-            android:name=".view.DetailProductActivity"
+            android:name=".ui.activity.DetailProductActivity"
             android:exported="false" />
         <activity
-            android:name=".view.LoginActivity"
+            android:name=".ui.activity.LoginActivity"
             android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -38,7 +38,7 @@
             </intent-filter>
         </activity>
         <activity
-            android:name=".view.MainActivity"
+            android:name=".ui.activity.MainActivity"
             android:exported="false" />
     </application>
 

@@ -1,4 +1,4 @@
-package com.wildan.storeapp.viewmodel
+package com.wildan.storeapp.ui.viewmodel
 
 import android.content.Context
 import androidx.lifecycle.LiveData
@@ -9,7 +9,7 @@ import com.wildan.storeapp.MyApp
 import com.wildan.storeapp.model.LoginRequest
 import com.wildan.storeapp.model.ProductResponse
 import com.wildan.storeapp.model.RegisterRequest
-import com.wildan.storeapp.network.RetrofitClient
+import com.wildan.storeapp.data.api.RetrofitClient
 import com.wildan.storeapp.repository.ProductRepository
 import com.wildan.storeapp.utils.Constant
 import kotlinx.coroutines.Dispatchers

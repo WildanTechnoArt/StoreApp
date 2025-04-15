@@ -1,4 +1,4 @@
-package com.wildan.storeapp.view
+package com.wildan.storeapp.ui.activity
 
 import android.content.Intent
 import android.os.Bundle
@@ -11,11 +11,13 @@ import androidx.lifecycle.lifecycleScope
 import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.wildan.storeapp.databinding.ActivityMainBinding
+import com.wildan.storeapp.ui.adapter.CategoryAdapter
+import com.wildan.storeapp.ui.adapter.ProductAdapter
 import com.wildan.storeapp.utils.Constant
-import com.wildan.storeapp.utils.ViewBindingExt.viewBinding
-import com.wildan.storeapp.viewmodel.DatabaseViewModel
-import com.wildan.storeapp.viewmodel.LocalDataViewModelFactory
-import com.wildan.storeapp.viewmodel.ProductViewModel
+import com.wildan.storeapp.utils.extensions.ViewBindingExt.viewBinding
+import com.wildan.storeapp.ui.viewmodel.DatabaseViewModel
+import com.wildan.storeapp.ui.viewmodel.LocalDataViewModelFactory
+import com.wildan.storeapp.ui.viewmodel.ProductViewModel
 import kotlinx.coroutines.launch
 import kotlin.properties.Delegates
 

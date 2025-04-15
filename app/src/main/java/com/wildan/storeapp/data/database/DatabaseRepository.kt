@@ -1,4 +1,4 @@
-package com.wildan.storeapp.database
+package com.wildan.storeapp.data.database
 
 import android.content.Context
 import androidx.lifecycle.LiveData

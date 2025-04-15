@@ -11,7 +11,7 @@
         android:layout_height="match_parent"
         android:padding="16dp"
         android:background="@android:color/white"
-        tools:context=".view.MainActivity">
+        tools:context=".ui.activity.MainActivity">
 
         <!-- Top Bar -->
         <com.google.android.material.imageview.ShapeableImageView

@@ -1,4 +1,4 @@
-package com.wildan.storeapp.view
+package com.wildan.storeapp.ui.adapter
 
 import android.annotation.SuppressLint
 import android.view.LayoutInflater

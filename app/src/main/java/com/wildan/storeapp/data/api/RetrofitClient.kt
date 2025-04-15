@@ -1,4 +1,4 @@
-package com.wildan.storeapp.network
+package com.wildan.storeapp.data.api
 
 import okhttp3.OkHttpClient
 import okhttp3.logging.HttpLoggingInterceptor

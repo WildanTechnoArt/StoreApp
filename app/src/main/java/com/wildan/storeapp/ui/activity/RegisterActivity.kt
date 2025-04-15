@@ -1,4 +1,4 @@
-package com.wildan.storeapp.view
+package com.wildan.storeapp.ui.activity
 
 import android.content.Intent
 import android.os.Bundle
@@ -13,8 +13,8 @@ import com.github.razir.progressbutton.showProgress
 import com.wildan.storeapp.R
 import com.wildan.storeapp.databinding.ActivityRegisterBinding
 import com.wildan.storeapp.utils.Constant
-import com.wildan.storeapp.utils.ViewBindingExt.viewBinding
-import com.wildan.storeapp.viewmodel.ProductViewModel
+import com.wildan.storeapp.utils.extensions.ViewBindingExt.viewBinding
+import com.wildan.storeapp.ui.viewmodel.ProductViewModel
 
 class RegisterActivity : AppCompatActivity() {
 

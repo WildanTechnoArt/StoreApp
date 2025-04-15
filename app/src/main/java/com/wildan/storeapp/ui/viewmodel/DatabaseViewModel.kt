@@ -1,9 +1,9 @@
-package com.wildan.storeapp.viewmodel
+package com.wildan.storeapp.ui.viewmodel
 
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.wildan.storeapp.database.DatabaseRepository
+import com.wildan.storeapp.data.database.DatabaseRepository
 import com.wildan.storeapp.model.ProductResponse
 import kotlinx.coroutines.launch
 

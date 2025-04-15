@@ -7,7 +7,7 @@
     android:id="@+id/layoutLogin"
     android:gravity="center_horizontal"
     android:layout_height="match_parent"
-    tools:context=".view.RegisterActivity">
+    tools:context=".ui.activity.RegisterActivity">
 
     <com.google.android.material.appbar.AppBarLayout
         android:id="@+id/appBarLayout"

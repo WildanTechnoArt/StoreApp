@@ -1,4 +1,4 @@
-package com.wildan.storeapp.view
+package com.wildan.storeapp.ui.activity
 
 import android.os.Bundle
 import androidx.activity.enableEdgeToEdge
