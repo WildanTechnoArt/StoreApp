@@ -10,6 +10,7 @@ import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.lifecycleScope
 import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.LinearLayoutManager
+import com.wildan.storeapp.MyApp
 import com.wildan.storeapp.databinding.ActivityMainBinding
 import com.wildan.storeapp.ui.adapter.CategoryAdapter
 import com.wildan.storeapp.ui.adapter.ProductAdapter
@@ -17,6 +18,7 @@ import com.wildan.storeapp.extensions.ViewBindingExt.viewBinding
 import com.wildan.storeapp.ui.viewmodel.DatabaseViewModel
 import com.wildan.storeapp.ui.viewmodel.LocalDataViewModelFactory
 import com.wildan.storeapp.ui.viewmodel.ProductViewModel
+import com.wildan.storeapp.utils.Constant
 import com.wildan.storeapp.utils.handleData
 import com.wildan.storeapp.utils.handleErrorApi
 import kotlinx.coroutines.launch
@@ -71,6 +73,12 @@ class MainActivity : AppCompatActivity() {
         }
         btnCart.setOnClickListener {
             startActivity(Intent(this@MainActivity, CartActivity::class.java))
+        }
+
+        lifecycleScope.launch {
+            val username = MyApp.getInstance().readAuthDataStore(this@MainActivity,
+                Constant.SAVE_USERNAME)
+            tvUsername.text = "Hello, $username"
         }
     }
 
