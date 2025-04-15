@@ -99,25 +99,12 @@
         android:id="@+id/btnAddToCart"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:layout_margin="8dp"
+        android:layout_margin="20dp"
         android:backgroundTint="@android:color/holo_green_dark"
         android:text="Add to Cart"
         android:textColor="@android:color/white"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toStartOf="@+id/btnCheckout"
-        app:layout_constraintStart_toStartOf="parent" />
-
-    <!-- Tombol Checkout -->
-    <com.google.android.material.button.MaterialButton
-        android:id="@+id/btnCheckout"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:layout_margin="8dp"
-        android:backgroundTint="@android:color/holo_blue_dark"
-        android:text="Checkout"
-        android:textColor="@android:color/white"
-        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toEndOf="@id/btnAddToCart" />
+        app:layout_constraintStart_toStartOf="parent" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

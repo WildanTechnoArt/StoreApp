@@ -15,6 +15,7 @@ import com.wildan.storeapp.databinding.ActivityMainBinding
 import com.wildan.storeapp.ui.adapter.CategoryAdapter
 import com.wildan.storeapp.ui.adapter.ProductAdapter
 import com.wildan.storeapp.extensions.ViewBindingExt.viewBinding
+import com.wildan.storeapp.ui.fragment.ProfileBottomSheetFragment
 import com.wildan.storeapp.ui.viewmodel.DatabaseViewModel
 import com.wildan.storeapp.ui.viewmodel.LocalDataViewModelFactory
 import com.wildan.storeapp.ui.viewmodel.ProductViewModel
@@ -79,6 +80,11 @@ class MainActivity : AppCompatActivity() {
             val username = MyApp.getInstance().readAuthDataStore(this@MainActivity,
                 Constant.SAVE_USERNAME)
             tvUsername.text = "Hello, $username"
+        }
+
+        tvUsername.setOnClickListener {
+            val bottomSheet = ProfileBottomSheetFragment()
+            bottomSheet.show(supportFragmentManager, "Profile")
         }
     }
 
