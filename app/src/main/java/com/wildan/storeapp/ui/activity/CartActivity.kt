@@ -23,11 +23,14 @@ class CartActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(binding.root)
-        mAdapter = CartAdapter()
 
         val factory = LocalDataViewModelFactory.getInstance(this)
         viewModelDatabase =
             ViewModelProvider(this, factory)[DatabaseViewModel::class.java]
+
+        mAdapter = CartAdapter { product ->
+            viewModelDatabase.removeFromCart(product)
+        }
 
         binding.rvArticles.apply {
             setHasFixedSize(false)

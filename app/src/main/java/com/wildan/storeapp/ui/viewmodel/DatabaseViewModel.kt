@@ -18,6 +18,12 @@ class DatabaseViewModel(private val repository: DatabaseRepository) : ViewModel(
         repository.checkIfAddCart(id)
     }
 
+    fun removeFromCart(product: ProductEntity){
+        viewModelScope.launch {
+            repository.removeCart(product)
+        }
+    }
+
     fun toggleChart(data: ProductEntity, callback: (Boolean) -> Unit) {
         viewModelScope.launch {
             if (isAddCart.value == true) {

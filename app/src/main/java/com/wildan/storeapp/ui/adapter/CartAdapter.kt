@@ -16,7 +16,7 @@ import com.wildan.storeapp.extensions.toRupiah
 import com.wildan.storeapp.ui.activity.DetailProductActivity
 import com.wildan.storeapp.utils.Constant
 
-class CartAdapter : RecyclerView.Adapter<CartAdapter.Holder>() {
+class CartAdapter (private val deleteItem: (ProductEntity) -> Unit) : RecyclerView.Adapter<CartAdapter.Holder>() {
 
     private val dataList = mutableListOf<ProductEntity>() // Dataset adapter
 
@@ -53,6 +53,10 @@ class CartAdapter : RecyclerView.Adapter<CartAdapter.Holder>() {
                     data,
                     DetailProductActivity::class.java,
                     it.context)
+            }
+
+            btnDelete.setOnClickListener {
+                deleteItem(data)
             }
         }
     }
