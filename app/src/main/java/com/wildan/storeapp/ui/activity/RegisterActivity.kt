@@ -76,7 +76,7 @@ class RegisterActivity : AppCompatActivity() {
     private fun getLiveData() = with(binding) {
         viewModelAuth.apply {
             successRegister.observe(this@RegisterActivity) {
-                startActivity(Intent(this@RegisterActivity, MainActivity::class.java))
+                startActivity(Intent(this@RegisterActivity, LoginActivity::class.java))
                 finish()
             }
             error.observe(this@RegisterActivity) {
