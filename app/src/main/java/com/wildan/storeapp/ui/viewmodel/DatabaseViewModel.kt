@@ -4,12 +4,12 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.wildan.storeapp.data.database.DatabaseRepository
-import com.wildan.storeapp.model.ProductResponse
+import com.wildan.storeapp.data.database.ProductEntity
 import kotlinx.coroutines.launch
 
 class DatabaseViewModel(private val repository: DatabaseRepository) : ViewModel() {
 
-    val allData: LiveData<List<ProductResponse>> = repository.getListCart()
+    val allData: LiveData<List<ProductEntity>> = repository.getListCart()
     val getTotalItemCount: LiveData<Int> = repository.getTotalItemCount()
 
     val isAddCart: LiveData<Boolean> = repository.isAddCart
@@ -18,7 +18,7 @@ class DatabaseViewModel(private val repository: DatabaseRepository) : ViewModel(
         repository.checkIfAddCart(id)
     }
 
-    fun toggleChart(data: ProductResponse, callback: (Boolean) -> Unit) {
+    fun toggleChart(data: ProductEntity, callback: (Boolean) -> Unit) {
         viewModelScope.launch {
             if (isAddCart.value == true) {
                 repository.removeCart(data)

@@ -13,6 +13,7 @@ import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.wildan.storeapp.R
 import com.wildan.storeapp.databinding.ItemProductBinding
+import com.wildan.storeapp.extensions.toRupiah
 import com.wildan.storeapp.model.ProductResponse
 import com.wildan.storeapp.ui.activity.DetailProductActivity
 import com.wildan.storeapp.utils.Constant
@@ -37,7 +38,7 @@ class ProductAdapter : ListAdapter<ProductResponse, ProductAdapter.Holder>(MyDif
                 .placeholder(R.drawable.baseline_image_100)
                 .into(imageProduct)
             tvProductName.text = productName
-            tvProductPrice.text = Constant.formatRupiah(data?.price ?: 0.0)
+            tvProductPrice.text = data?.price.toRupiah()
             tvRating.text = "${data.rating?.rate} (${data.rating?.count})"
 
             cardProduct.setOnClickListener {

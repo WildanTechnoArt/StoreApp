@@ -13,8 +13,9 @@ import com.github.razir.progressbutton.showProgress
 import com.wildan.storeapp.R
 import com.wildan.storeapp.databinding.ActivityRegisterBinding
 import com.wildan.storeapp.utils.Constant
-import com.wildan.storeapp.utils.extensions.ViewBindingExt.viewBinding
+import com.wildan.storeapp.extensions.ViewBindingExt.viewBinding
 import com.wildan.storeapp.ui.viewmodel.ProductViewModel
+import com.wildan.storeapp.utils.handleErrorApi
 
 class RegisterActivity : AppCompatActivity() {
 
@@ -53,8 +54,8 @@ class RegisterActivity : AppCompatActivity() {
             val password = inputPassword.text.toString()
             val email = inputEmail.text.toString()
 
-            val usernameEmpty = Constant.isTextEmpty(username)
-            val passEmpty = Constant.isTextEmpty(password)
+//            val usernameEmpty = Constant.isTextEmpty(username)
+//            val passEmpty = Constant.isTextEmpty(password)
         }
     }
 
@@ -65,7 +66,7 @@ class RegisterActivity : AppCompatActivity() {
                 finish()
             }
             error.observe(this@RegisterActivity) {
-                Constant.handleErrorApi(this@RegisterActivity, it)
+                handleErrorApi(it)
             }
             loading.observe(this@RegisterActivity) {
                 if (it) {

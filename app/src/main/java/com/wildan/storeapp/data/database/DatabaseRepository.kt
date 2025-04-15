@@ -3,14 +3,13 @@ package com.wildan.storeapp.data.database
 import android.content.Context
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MediatorLiveData
-import com.wildan.storeapp.model.ProductResponse
 
 class DatabaseRepository private constructor(private val dataDao: DataDao) {
 
     private val _isAddCart = MediatorLiveData<Boolean>()
     val isAddCart: LiveData<Boolean> get() = _isAddCart
 
-    private var lastSource: LiveData<ProductResponse?>? = null
+    private var lastSource: LiveData<ProductEntity?>? = null
 
     companion object {
         @Volatile
@@ -24,12 +23,12 @@ class DatabaseRepository private constructor(private val dataDao: DataDao) {
         }
     }
 
-    fun getListCart(): LiveData<List<ProductResponse>> = dataDao.getAllCart()
+    fun getListCart(): LiveData<List<ProductEntity>> = dataDao.getAllCart()
     fun getTotalItemCount(): LiveData<Int> = dataDao.getTotalItemCount()
 
-    suspend fun addCart(data: ProductResponse) = dataDao.addCart(data)
+    suspend fun addCart(data: ProductEntity) = dataDao.addCart(data)
 
-    suspend fun removeCart(data: ProductResponse) = dataDao.removeCart(data)
+    suspend fun removeCart(data: ProductEntity) = dataDao.removeCart(data)
 
     fun checkIfAddCart(id: String) {
         lastSource?.let { _isAddCart.removeSource(it) }

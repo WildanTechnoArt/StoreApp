@@ -10,17 +10,18 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.wildan.storeapp.R
+import com.wildan.storeapp.data.database.ProductEntity
 import com.wildan.storeapp.databinding.ItemCartBinding
-import com.wildan.storeapp.model.ProductResponse
+import com.wildan.storeapp.extensions.toRupiah
 import com.wildan.storeapp.ui.activity.DetailProductActivity
 import com.wildan.storeapp.utils.Constant
 
 class CartAdapter : RecyclerView.Adapter<CartAdapter.Holder>() {
 
-    private val dataList = mutableListOf<ProductResponse>() // Dataset adapter
+    private val dataList = mutableListOf<ProductEntity>() // Dataset adapter
 
     @SuppressLint("NotifyDataSetChanged")
-    fun submitList(newData: List<ProductResponse>) {
+    fun submitList(newData: List<ProductEntity>) {
         dataList.clear()
         dataList.addAll(newData)
         notifyDataSetChanged()
@@ -44,7 +45,7 @@ class CartAdapter : RecyclerView.Adapter<CartAdapter.Holder>() {
                 .placeholder(R.drawable.baseline_image_100)
                 .into(imgProduct)
             tvProductName.text = productName
-            tvProductPrice.text = Constant.formatRupiah(data.price ?: 0.0)
+            tvProductPrice.text = data.price.toRupiah()
             tvProductQuantity.text = "Quantity: ${data.count} pcs"
 
             cardProduct.setOnClickListener {
@@ -57,7 +58,7 @@ class CartAdapter : RecyclerView.Adapter<CartAdapter.Holder>() {
     }
 
     private fun toDetailFragment(
-        data: ProductResponse,
+        data: ProductEntity,
         activity: Class<out AppCompatActivity>,
         context: Context
     ) {

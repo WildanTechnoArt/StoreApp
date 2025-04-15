@@ -8,7 +8,7 @@ import androidx.lifecycle.lifecycleScope
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.wildan.storeapp.databinding.ActivityCartBinding
 import com.wildan.storeapp.ui.adapter.CartAdapter
-import com.wildan.storeapp.utils.extensions.ViewBindingExt.viewBinding
+import com.wildan.storeapp.extensions.ViewBindingExt.viewBinding
 import com.wildan.storeapp.ui.viewmodel.DatabaseViewModel
 import com.wildan.storeapp.ui.viewmodel.LocalDataViewModelFactory
 import kotlinx.coroutines.launch

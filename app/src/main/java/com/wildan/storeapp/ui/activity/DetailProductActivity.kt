@@ -7,13 +7,15 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.ViewModelProvider
 import com.bumptech.glide.Glide
 import com.wildan.storeapp.R
+import com.wildan.storeapp.data.database.ProductEntity
 import com.wildan.storeapp.databinding.ActivityDetailProductBinding
-import com.wildan.storeapp.model.ProductResponse
 import com.wildan.storeapp.utils.Constant
-import com.wildan.storeapp.utils.extensions.ViewBindingExt.viewBinding
+import com.wildan.storeapp.extensions.ViewBindingExt.viewBinding
+import com.wildan.storeapp.extensions.toRupiah
 import com.wildan.storeapp.ui.viewmodel.DatabaseViewModel
 import com.wildan.storeapp.ui.viewmodel.LocalDataViewModelFactory
 import com.wildan.storeapp.ui.viewmodel.ProductViewModel
+import com.wildan.storeapp.utils.handleErrorApi
 
 class DetailProductActivity : AppCompatActivity() {
 
@@ -56,12 +58,12 @@ class DetailProductActivity : AppCompatActivity() {
                     .placeholder(R.drawable.baseline_image_100)
                     .into(imageProduct)
                 tvTitle.text = productName
-                tvPrice.text = Constant.formatRupiah(data?.price ?: 0.0)
+                tvPrice.text = data?.price?.toRupiah()
                 tvCategory.text = data.category ?: "None category"
                 tvDescription.text = data.description ?: "None description"
                 tvRating.text = "${data.rating?.rate} (${data.rating?.count})"
 
-                val product = ProductResponse()
+                val product = ProductEntity()
                 product.title = productName
                 product.price = data?.price ?: 0.0
                 product.count = 0
@@ -73,7 +75,7 @@ class DetailProductActivity : AppCompatActivity() {
                 }
             }
             error.observe(this@DetailProductActivity) {
-                Constant.handleErrorApi(this@DetailProductActivity, it)
+                handleErrorApi(it)
             }
             loading.observe(this@DetailProductActivity) {
                 swipeRefresh.isRefreshing = it

@@ -13,11 +13,12 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import com.wildan.storeapp.databinding.ActivityMainBinding
 import com.wildan.storeapp.ui.adapter.CategoryAdapter
 import com.wildan.storeapp.ui.adapter.ProductAdapter
-import com.wildan.storeapp.utils.Constant
-import com.wildan.storeapp.utils.extensions.ViewBindingExt.viewBinding
+import com.wildan.storeapp.extensions.ViewBindingExt.viewBinding
 import com.wildan.storeapp.ui.viewmodel.DatabaseViewModel
 import com.wildan.storeapp.ui.viewmodel.LocalDataViewModelFactory
 import com.wildan.storeapp.ui.viewmodel.ProductViewModel
+import com.wildan.storeapp.utils.handleData
+import com.wildan.storeapp.utils.handleErrorApi
 import kotlinx.coroutines.launch
 import kotlin.properties.Delegates
 
@@ -81,8 +82,8 @@ class MainActivity : AppCompatActivity() {
     private fun getLiveData() = with(binding) {
         viewModel.apply {
             getProductList.observe(this@MainActivity) { data ->
-                Constant.handleData(
-                    1, false, data, mAdapterProduct,
+                handleData(
+                    1, data, mAdapterProduct,
                     rvProduct, textMessageNoData
                 )
             }
@@ -90,7 +91,7 @@ class MainActivity : AppCompatActivity() {
                 mAdapterCategory.submitList(data)
             }
             error.observe(this@MainActivity) {
-                Constant.handleErrorApi(this@MainActivity, it)
+                handleErrorApi(it)
             }
             loading.observe(this@MainActivity) {
                 swipeRefresh.isRefreshing = it

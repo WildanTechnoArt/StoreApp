@@ -5,7 +5,6 @@ import android.os.Bundle
 import android.text.method.PasswordTransformationMethod
 import android.view.View
 import android.view.inputmethod.EditorInfo
-import android.widget.Toast
 import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.graphics.toColorInt
@@ -19,8 +18,11 @@ import com.wildan.storeapp.R
 import com.wildan.storeapp.databinding.ActivityLoginBinding
 import com.wildan.storeapp.model.LoginRequest
 import com.wildan.storeapp.utils.Constant
-import com.wildan.storeapp.utils.extensions.ViewBindingExt.viewBinding
+import com.wildan.storeapp.extensions.ViewBindingExt.viewBinding
+import com.wildan.storeapp.extensions.isNotEmpty
 import com.wildan.storeapp.ui.viewmodel.ProductViewModel
+import com.wildan.storeapp.extensions.showToast
+import com.wildan.storeapp.utils.handleErrorApi
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
@@ -111,21 +113,14 @@ class LoginActivity : AppCompatActivity() {
             val username = inputUsername.text.toString()
             val password = inputPassword.text.toString()
 
-            val usernameEmpty = Constant.isTextEmpty(username)
-            val passEmpty = Constant.isTextEmpty(password)
-
-            if (!usernameEmpty && !passEmpty) {
+            if (username.isNotEmpty() && password.isNotEmpty()) {
                 val body = LoginRequest()
                 body.username = username
                 body.password = password
 
                 viewModelAuth.requestLogin(this@LoginActivity, body, isRemember)
             } else {
-                Toast.makeText(
-                    this@LoginActivity,
-                    getString(R.string.message_if_login_empty),
-                    Toast.LENGTH_SHORT
-                ).show()
+                showToast(getString(R.string.message_if_login_empty))
             }
         }
     }
@@ -148,7 +143,7 @@ class LoginActivity : AppCompatActivity() {
                 }
             }
             error.observe(this@LoginActivity) {
-                Constant.handleErrorApi(this@LoginActivity, it)
+                handleErrorApi(it)
             }
             loading.observe(this@LoginActivity) {
                 if (it) {
