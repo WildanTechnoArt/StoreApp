@@ -30,5 +30,6 @@
     <string name="info_no_product">No products can be displayed</string>
     <string name="label_remember">Remember me</string>
     <string name="message_if_login_empty">Username or Password cannot be empty</string>
+    <string name="msg_if_empty">There must be no empty data</string>
     <string name="email">Email</string>
 </resources>

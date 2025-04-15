@@ -12,8 +12,11 @@ import com.github.razir.progressbutton.hideProgress
 import com.github.razir.progressbutton.showProgress
 import com.wildan.storeapp.R
 import com.wildan.storeapp.databinding.ActivityRegisterBinding
-import com.wildan.storeapp.utils.Constant
 import com.wildan.storeapp.extensions.ViewBindingExt.viewBinding
+import com.wildan.storeapp.extensions.isNotEmpty
+import com.wildan.storeapp.extensions.isValidEmail
+import com.wildan.storeapp.extensions.showToast
+import com.wildan.storeapp.model.RegisterRequest
 import com.wildan.storeapp.ui.viewmodel.ProductViewModel
 import com.wildan.storeapp.utils.handleErrorApi
 
@@ -30,7 +33,6 @@ class RegisterActivity : AppCompatActivity() {
     }
 
     private fun setupView() = with(binding) {
-
         bindProgressButton(registerButton)
         registerButton.attachTextChangeAnimator()
 
@@ -54,8 +56,20 @@ class RegisterActivity : AppCompatActivity() {
             val password = inputPassword.text.toString()
             val email = inputEmail.text.toString()
 
-//            val usernameEmpty = Constant.isTextEmpty(username)
-//            val passEmpty = Constant.isTextEmpty(password)
+            if (username.isNotEmpty() && password.isNotEmpty()) {
+                if (email.isValidEmail()) {
+                    val body = RegisterRequest()
+                    body.username = username
+                    body.password = password
+                    body.email = email
+
+                    viewModelAuth.registerUser(body)
+                } else {
+                    showToast("Email not valid")
+                }
+            } else {
+                showToast(getString(R.string.msg_if_empty))
+            }
         }
     }
 
