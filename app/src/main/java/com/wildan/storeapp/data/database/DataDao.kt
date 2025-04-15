@@ -10,6 +10,9 @@ interface DataDao {
     fun getAllCart(): LiveData<List<ProductEntity>>
 
     @Query("SELECT SUM(quantity) FROM TableProducts")
+    fun getTotalQuantity(): LiveData<Int>
+
+    @Query("SELECT count(*) FROM TableProducts")
     fun getTotalItemCount(): LiveData<Int>
 
     @Insert(onConflict = OnConflictStrategy.REPLACE)

@@ -76,11 +76,9 @@
             android:paddingStart="4dp"
             android:paddingEnd="4dp"
             android:scrollbars="horizontal"
-            app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
             app:layout_constraintTop_toBottomOf="@id/imgProfile"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            tools:listitem="@layout/item_category" />
+            app:layout_constraintEnd_toEndOf="parent" />
 
         <!-- Product List -->
         <androidx.recyclerview.widget.RecyclerView

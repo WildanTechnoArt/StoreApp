@@ -59,7 +59,8 @@ class RegisterActivity : AppCompatActivity() {
 
     private fun getLiveData() = with(binding) {
         viewModelAuth.apply {
-            successRegister.observe(this@RegisterActivity) {
+            successRegister.observe(this@RegisterActivity) { message ->
+                showToast(message.toString())
                 startActivity(Intent(this@RegisterActivity, LoginActivity::class.java))
                 finish()
             }

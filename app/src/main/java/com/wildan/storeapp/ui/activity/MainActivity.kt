@@ -58,13 +58,13 @@ class MainActivity : AppCompatActivity() {
         mAdapterCategory = CategoryAdapter()
 
         rvProduct.apply {
-            setHasFixedSize(true)
+            setHasFixedSize(false)
             layoutManager = GridLayoutManager(this@MainActivity, 2)
             adapter = mAdapterProduct
         }
 
         rvCategory.apply {
-            setHasFixedSize(true)
+            setHasFixedSize(false)
             layoutManager = LinearLayoutManager(this@MainActivity, LinearLayoutManager.HORIZONTAL, false)
             adapter = mAdapterCategory
         }
@@ -112,11 +112,11 @@ class MainActivity : AppCompatActivity() {
             }
         }
 
-        viewModelDatabase.getTotalItemCount.observe(this@MainActivity) { quantity ->
+        viewModelDatabase.getTotalItemCount.observe(this@MainActivity) { count ->
             lifecycleScope.launch {
-                val itemCount = quantity > 0
+                val itemCount = (count ?: 0) > 0
                 tvCartBadge.visibility = if(itemCount) View.VISIBLE else View.GONE
-                tvCartBadge.text = quantity.toString()
+                tvCartBadge.text = count.toString()
             }
         }
     }

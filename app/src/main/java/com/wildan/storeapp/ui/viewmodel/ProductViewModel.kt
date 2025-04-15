@@ -72,7 +72,7 @@ class ProductViewModel : ViewModel() {
                     .collect {
                         MyApp.getInstance().saveAuthDataStore(
                             context, Constant.SAVE_USERNAME,
-                            body.password
+                            body.username
                         )
 
                         MyApp.getInstance().saveAuthDataStore(
