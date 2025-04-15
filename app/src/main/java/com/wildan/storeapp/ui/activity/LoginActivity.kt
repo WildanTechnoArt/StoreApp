@@ -44,21 +44,6 @@ class LoginActivity : AppCompatActivity() {
         bindProgressButton(loginButton)
         loginButton.attachTextChangeAnimator()
 
-        layoutPassword.setEndIconDrawable(R.drawable.filled_visibility_off)
-        layoutPassword.setEndIconOnClickListener {
-            if (inputPassword.transformationMethod is PasswordTransformationMethod) {
-                // Show Password
-                inputPassword.transformationMethod = null
-                layoutPassword.setEndIconDrawable(R.drawable.filled_visibility_on)
-            } else {
-                // Hide Password
-                inputPassword.transformationMethod = PasswordTransformationMethod.getInstance()
-                layoutPassword.setEndIconDrawable(R.drawable.filled_visibility_off)
-            }
-
-            inputPassword.setSelection(inputPassword.text?.length ?: 0)
-        }
-
         registerButton.setOnClickListener {
             startActivity(Intent(this@LoginActivity, RegisterActivity::class.java))
         }
@@ -69,7 +54,7 @@ class LoginActivity : AppCompatActivity() {
             val getAccessToken =
                 MyApp.getInstance().readStringDataStore(this@LoginActivity, Constant.SAVE_TOKEN)
 
-            if (getAccessToken.isNotEmpty()) {
+            if (getAccessToken != "-") {
                 startActivity(Intent(this@LoginActivity, MainActivity::class.java))
                 finish()
             } else {

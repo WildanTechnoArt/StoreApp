@@ -60,8 +60,7 @@
         app:boxCornerRadiusTopStart="@dimen/margin_field"
         app:boxStrokeColor="@color/colorPrimary"
         app:boxStrokeWidth="1dp"
-        app:endIconMode="custom"
-        app:endIconTint="@color/blackTransparent">
+        app:endIconMode="password_toggle">
 
         <com.google.android.material.textfield.TextInputEditText
             android:id="@+id/inputPassword"

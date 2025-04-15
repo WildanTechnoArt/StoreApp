@@ -2,7 +2,6 @@ package com.wildan.storeapp.ui.activity
 
 import android.content.Intent
 import android.os.Bundle
-import android.text.method.PasswordTransformationMethod
 import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.graphics.toColorInt
@@ -35,21 +34,6 @@ class RegisterActivity : AppCompatActivity() {
     private fun setupView() = with(binding) {
         bindProgressButton(registerButton)
         registerButton.attachTextChangeAnimator()
-
-        layoutPassword.setEndIconDrawable(R.drawable.filled_visibility_off)
-        layoutPassword.setEndIconOnClickListener {
-            if (inputPassword.transformationMethod is PasswordTransformationMethod) {
-                // Show Password
-                inputPassword.transformationMethod = null
-                layoutPassword.setEndIconDrawable(R.drawable.filled_visibility_on)
-            } else {
-                // Hide Password
-                inputPassword.transformationMethod = PasswordTransformationMethod.getInstance()
-                layoutPassword.setEndIconDrawable(R.drawable.filled_visibility_off)
-            }
-
-            inputPassword.setSelection(inputPassword.text?.length ?: 0)
-        }
 
         binding.registerButton.setOnClickListener {
             val username = inputUsername.text.toString()

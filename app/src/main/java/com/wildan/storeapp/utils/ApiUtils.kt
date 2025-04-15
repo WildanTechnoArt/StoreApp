@@ -18,15 +18,20 @@ fun FragmentActivity.handleErrorApi(error: Throwable) {
         when (error) {
             is HttpException -> {
                 try {
-                    val response = Gson().fromJson(
-                        error.response()?.errorBody()?.charStream(),
-                        Response::class.java
-                    )
-                    handleSessionAndException(error, response?.message)
+                    val errorBody = error.response()?.errorBody()?.string()
+                    if (errorBody?.startsWith("{") == true) {
+                        val response = Gson().fromJson(errorBody,
+                            Response::class.java
+                        )
+                        handleSessionAndException(error, response?.message)
+                    } else {
+                        showToast(errorBody ?: "Unknown error")
+                    }
                 } catch (e: Exception) {
-                    showToast(getString(R.string.message_if_error))
+                    e.localizedMessage?.let { showToast(it) }
                 }
             }
+
             is SocketTimeoutException -> showToast("Connection Timeout!")
             else -> showToast(error.toString())
         }

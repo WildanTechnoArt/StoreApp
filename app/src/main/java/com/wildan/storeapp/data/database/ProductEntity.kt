@@ -13,5 +13,5 @@ data class ProductEntity(
     @ColumnInfo("title") var title: String? = null,
     @ColumnInfo("price") var price: Double? = null,
     @ColumnInfo("image") var image: String? = null,
-    @ColumnInfo("quantity") var count: Int? = null,
+    @ColumnInfo("quantity") var count: Int? = 0,
 )
