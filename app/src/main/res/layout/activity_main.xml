@@ -9,19 +9,39 @@
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:padding="16dp"
         android:background="@android:color/white"
         tools:context=".ui.activity.MainActivity">
+
+        <com.google.android.material.appbar.AppBarLayout
+            android:id="@+id/appBarLayout"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent">
+
+            <com.google.android.material.appbar.MaterialToolbar
+                android:id="@+id/toolbar"
+                android:layout_width="match_parent"
+                android:layout_height="?attr/actionBarSize"
+                app:titleCentered="true"
+                android:background="@android:color/white"
+                app:title="StoreApp"
+                app:titleTextAppearance="@style/TextAppearance.AppCompat.Title" />
+
+        </com.google.android.material.appbar.AppBarLayout>
 
         <!-- Top Bar -->
         <com.google.android.material.imageview.ShapeableImageView
             android:id="@+id/imgProfile"
             android:layout_width="40dp"
             android:layout_height="40dp"
+            android:layout_marginTop="8dp"
+            android:layout_marginStart="@dimen/padding_medium"
             android:src="@drawable/profile_placeholder"
-            app:shapeAppearance="@style/ShapeAppearanceOverlay.App.CornerSize50Percent"
-            app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintStart_toStartOf="parent" />
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/appBarLayout"
+            app:shapeAppearance="@style/ShapeAppearanceOverlay.App.CornerSize50Percent" />
 
         <TextView
             android:id="@+id/tvUsername"
@@ -41,6 +61,7 @@
         <!-- Cart Button with Badge -->
         <FrameLayout
             android:id="@+id/btnCart"
+            android:layout_marginEnd="@dimen/padding_medium"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             app:layout_constraintTop_toTopOf="@id/imgProfile"
@@ -76,9 +97,9 @@
             android:paddingStart="4dp"
             android:paddingEnd="4dp"
             android:scrollbars="horizontal"
-            app:layout_constraintTop_toBottomOf="@id/imgProfile"
+            app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintEnd_toEndOf="parent" />
+            app:layout_constraintTop_toBottomOf="@id/imgProfile" />
 
         <!-- Product List -->
         <androidx.recyclerview.widget.RecyclerView
@@ -87,13 +108,12 @@
             android:layout_height="0dp"
             android:layout_marginTop="12dp"
             android:clipToPadding="false"
-            android:paddingBottom="8dp"
             app:layoutManager="androidx.recyclerview.widget.GridLayoutManager"
-            app:spanCount="2"
-            app:layout_constraintTop_toBottomOf="@id/rvCategory"
             app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintEnd_toEndOf="@+id/btnCart"
+            app:layout_constraintStart_toStartOf="@+id/imgProfile"
+            app:layout_constraintTop_toBottomOf="@id/rvCategory"
+            app:spanCount="2"
             tools:listitem="@layout/item_product" />
 
         <com.google.android.material.textview.MaterialTextView

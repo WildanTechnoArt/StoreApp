@@ -21,7 +21,9 @@ import kotlinx.coroutines.launch
 
 class ProductViewModel : ViewModel() {
 
-    private val repository: ProductRepository by lazy { ProductRepository(RetrofitClient.instance) }
+    private val repository: ProductRepository by lazy {
+        ProductRepository(RetrofitClient.instance)
+    }
 
     private val _getCategoryList = MutableLiveData<List<String>>()
     val getCategoryList: LiveData<List<String>> = _getCategoryList

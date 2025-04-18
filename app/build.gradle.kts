@@ -2,7 +2,9 @@ plugins {
     alias(libs.plugins.android.application)
     alias(libs.plugins.jetbrains.kotlin.android)
     alias(libs.plugins.google.devtools.ksp)
+    kotlin("kapt")
     id("androidx.navigation.safeargs.kotlin")
+    id("dagger.hilt.android.plugin")
     id("kotlin-parcelize")
 }
 
@@ -72,6 +74,8 @@ dependencies {
     implementation(libs.navigation.ui)
     implementation(libs.com.facebook.shimmer)
     ksp(libs.github.bumptech.ksp)
+    implementation(libs.hilt.android) // Hilt dependencies
+    kapt(libs.hilt.android.compiler) // Hilt annotation processor
     implementation(libs.androidx.lifecycle.common)
     implementation(libs.androidx.lifecycle.viewmodel)
     implementation(libs.androidx.lifecycle.livedata)

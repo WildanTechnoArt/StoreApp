@@ -1,16 +1,24 @@
 package com.wildan.storeapp.ui.activity
 
+import android.annotation.SuppressLint
 import android.os.Bundle
+import android.text.Editable
+import android.text.TextWatcher
 import android.widget.Toast
 import androidx.activity.viewModels
+import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.ViewModelProvider
 import com.bumptech.glide.Glide
+import com.google.android.material.button.MaterialButton
+import com.google.android.material.dialog.MaterialAlertDialogBuilder
+import com.google.android.material.textfield.TextInputEditText
 import com.wildan.storeapp.R
 import com.wildan.storeapp.data.database.ProductEntity
 import com.wildan.storeapp.databinding.ActivityDetailProductBinding
 import com.wildan.storeapp.utils.Constant
 import com.wildan.storeapp.extensions.ViewBindingExt.viewBinding
+import com.wildan.storeapp.extensions.showToast
 import com.wildan.storeapp.extensions.toRupiah
 import com.wildan.storeapp.ui.viewmodel.DatabaseViewModel
 import com.wildan.storeapp.ui.viewmodel.LocalDataViewModelFactory
@@ -22,6 +30,7 @@ class DetailProductActivity : AppCompatActivity() {
     private val binding by viewBinding(ActivityDetailProductBinding::inflate)
     private val viewModel: ProductViewModel by viewModels()
     private lateinit var viewModelDatabase: DatabaseViewModel
+    private var builder: AlertDialog? = null
     private var productId: String? = null
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -41,14 +50,9 @@ class DetailProductActivity : AppCompatActivity() {
         swipeRefresh.setOnRefreshListener {
             viewModel.getProductDetail(productId.toString())
         }
-
-        viewModelDatabase.checkIfAddCart(productId.toString())
-
-        viewModelDatabase.isAddCart.observe(this@DetailProductActivity) { exist ->
-            btnAddToCart.text = if (exist) "Remove from Cart" else "Add to Cart"
-        }
     }
 
+    @SuppressLint("SetTextI18n")
     private fun getLiveData() = with(binding) {
         viewModel.apply {
             getProductDetail.observe(this@DetailProductActivity) { data ->
@@ -64,14 +68,13 @@ class DetailProductActivity : AppCompatActivity() {
                 tvRating.text = "${data.rating?.rate} (${data.rating?.count})"
 
                 val product = ProductEntity()
+                product.id = data.id
                 product.title = productName
                 product.price = data?.price ?: 0.0
-                product.count = 0
                 product.image = data.image
 
-                viewModelDatabase.toggleChart(product) { isSaved ->
-                    val message = if (isSaved) "Add to Cart" else "Remove from Cart"
-                    Toast.makeText(this@DetailProductActivity, message, Toast.LENGTH_SHORT).show()
+                btnAddToCart.setOnClickListener {
+                    addToCart(product)
                 }
             }
             error.observe(this@DetailProductActivity) {
@@ -81,5 +84,65 @@ class DetailProductActivity : AppCompatActivity() {
                 swipeRefresh.isRefreshing = it
             }
         }
+    }
+
+    private fun addToCart(cartBody: ProductEntity) {
+        var productCount = 1
+
+        builder = MaterialAlertDialogBuilder(this).create()
+        val view = layoutInflater.inflate(R.layout.dialog_insert_quantity, null)
+        builder?.setTitle(binding.tvTitle.text.toString())
+        builder?.setView(view)
+
+        val buttonMin = view.findViewById<MaterialButton>(R.id.buttonMin)
+        val buttonPlus = view.findViewById<MaterialButton>(R.id.buttonPlus)
+        val buttonAdd = view.findViewById<MaterialButton>(R.id.buttonAdd)
+        val buttonBack = view.findViewById<MaterialButton>(R.id.buttonBack)
+        val inputCount = view.findViewById<TextInputEditText>(R.id.inputCount)
+
+        buttonMin?.setOnClickListener {
+            if (productCount > 1) {
+                productCount--
+                inputCount.setText(productCount.toString())
+            }
+        }
+
+        buttonPlus?.setOnClickListener {
+            productCount++
+            inputCount.setText(productCount.toString())
+        }
+
+        inputCount?.addTextChangedListener(object : TextWatcher {
+            override fun beforeTextChanged(s: CharSequence?, start: Int, count: Int, after: Int) {
+
+            }
+
+            override fun onTextChanged(s: CharSequence?, start: Int, before: Int, count: Int) {
+            }
+
+            override fun afterTextChanged(s: Editable?) {
+                if ((s?.length ?: 0) >= 1) {
+                    val count = s?.toString()
+                    productCount = Integer.parseInt(count ?: "0")
+                }
+            }
+        })
+
+        buttonAdd.setOnClickListener {
+            if (inputCount.text?.isEmpty() == true) {
+                showToast("The number of products cannot be empty")
+            } else {
+                cartBody.count = productCount
+                viewModelDatabase.addToCart(cartBody, productCount)
+                Toast.makeText(this@DetailProductActivity, "Add to Cart", Toast.LENGTH_SHORT).show()
+                builder?.dismiss()
+            }
+        }
+
+        buttonBack.setOnClickListener {
+            builder?.dismiss()
+        }
+
+        builder?.show()
     }
 }

@@ -21,6 +21,9 @@ interface DataDao {
     @Delete
     suspend fun removeCart(data: ProductEntity)
 
-    @Query("SELECT * FROM TableProducts WHERE id = :id LIMIT 1")
-    fun isProductCart(id: String): LiveData<ProductEntity?>
+    @Query("SELECT EXISTS(SELECT 1 FROM TableProducts WHERE id = :id LIMIT 1)")
+    suspend fun isProductCart(id: Int?): Boolean
+
+    @Query("UPDATE TableProducts SET quantity = quantity + :qty WHERE id = :productId")
+    suspend fun insertQuantity(productId: Int?, qty: Int)
 }

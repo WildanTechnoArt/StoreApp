@@ -32,4 +32,10 @@
     <string name="message_if_login_empty">Username or Password cannot be empty</string>
     <string name="msg_if_empty">There must be no empty data</string>
     <string name="email">Email</string>
+    <string name="label_insert_quantity">Product Quantity</string>
+    <string name="min">-</string>
+    <string name="plus">+</string>
+    <string name="default_product_count">1</string>
+    <string name="action_back">Back</string>
+    <string name="action_add">Add</string>
 </resources>

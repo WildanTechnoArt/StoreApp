@@ -2,7 +2,6 @@ package com.wildan.storeapp.ui.activity
 
 import android.content.Intent
 import android.os.Bundle
-import android.text.method.PasswordTransformationMethod
 import android.view.View
 import android.view.inputmethod.EditorInfo
 import androidx.activity.viewModels

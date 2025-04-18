@@ -12,26 +12,19 @@ class DatabaseViewModel(private val repository: DatabaseRepository) : ViewModel(
     val allData: LiveData<List<ProductEntity>> = repository.getListCart()
     val getTotalItemCount: LiveData<Int> = repository.getTotalItemCount()
 
-    val isAddCart: LiveData<Boolean> = repository.isAddCart
-
-    fun checkIfAddCart(id: String) {
-        repository.checkIfAddCart(id)
-    }
-
     fun removeFromCart(product: ProductEntity){
         viewModelScope.launch {
             repository.removeCart(product)
         }
     }
 
-    fun toggleChart(data: ProductEntity, callback: (Boolean) -> Unit) {
+    fun addToCart(data: ProductEntity, qty: Int) {
         viewModelScope.launch {
-            if (isAddCart.value == true) {
-                repository.removeCart(data)
-                callback(false)
+            val isAddCart = repository.checkIfAddCart(data.id)
+            if (isAddCart) {
+                repository.insertQuantity(data.id, qty)
             } else {
                 repository.addCart(data)
-                callback(true)
             }
         }
     }
