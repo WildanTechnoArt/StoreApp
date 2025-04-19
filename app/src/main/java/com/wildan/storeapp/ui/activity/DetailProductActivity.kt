@@ -16,6 +16,8 @@ import com.google.android.material.textfield.TextInputEditText
 import com.wildan.storeapp.R
 import com.wildan.storeapp.data.database.ProductEntity
 import com.wildan.storeapp.databinding.ActivityDetailProductBinding
+import com.wildan.storeapp.databinding.DialogInsertQuantityBinding
+import com.wildan.storeapp.extensions.ViewBindingExt.createAlertDialog
 import com.wildan.storeapp.utils.Constant
 import com.wildan.storeapp.extensions.ViewBindingExt.viewBinding
 import com.wildan.storeapp.extensions.showToast
@@ -30,7 +32,6 @@ class DetailProductActivity : AppCompatActivity() {
     private val binding by viewBinding(ActivityDetailProductBinding::inflate)
     private val viewModel: ProductViewModel by viewModels()
     private lateinit var viewModelDatabase: DatabaseViewModel
-    private var builder: AlertDialog? = null
     private var productId: String? = null
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -88,61 +89,52 @@ class DetailProductActivity : AppCompatActivity() {
 
     private fun addToCart(cartBody: ProductEntity) {
         var productCount = 1
+        val productName = cartBody.title ?: "-"
 
-        builder = MaterialAlertDialogBuilder(this).create()
-        val view = layoutInflater.inflate(R.layout.dialog_insert_quantity, null)
-        builder?.setTitle(binding.tvTitle.text.toString())
-        builder?.setView(view)
-
-        val buttonMin = view.findViewById<MaterialButton>(R.id.buttonMin)
-        val buttonPlus = view.findViewById<MaterialButton>(R.id.buttonPlus)
-        val buttonAdd = view.findViewById<MaterialButton>(R.id.buttonAdd)
-        val buttonBack = view.findViewById<MaterialButton>(R.id.buttonBack)
-        val inputCount = view.findViewById<TextInputEditText>(R.id.inputCount)
-
-        buttonMin?.setOnClickListener {
-            if (productCount > 1) {
-                productCount--
-                inputCount.setText(productCount.toString())
-            }
-        }
-
-        buttonPlus?.setOnClickListener {
-            productCount++
-            inputCount.setText(productCount.toString())
-        }
-
-        inputCount?.addTextChangedListener(object : TextWatcher {
-            override fun beforeTextChanged(s: CharSequence?, start: Int, count: Int, after: Int) {
-
-            }
-
-            override fun onTextChanged(s: CharSequence?, start: Int, before: Int, count: Int) {
-            }
-
-            override fun afterTextChanged(s: Editable?) {
-                if ((s?.length ?: 0) >= 1) {
-                    val count = s?.toString()
-                    productCount = Integer.parseInt(count ?: "0")
+        createAlertDialog(productName, DialogInsertQuantityBinding::inflate){ v, dialog ->
+            v.buttonMin.setOnClickListener {
+                if (productCount > 1) {
+                    productCount--
+                    v.inputCount.setText(productCount.toString())
                 }
             }
-        })
 
-        buttonAdd.setOnClickListener {
-            if (inputCount.text?.isEmpty() == true) {
-                showToast("The number of products cannot be empty")
-            } else {
-                cartBody.count = productCount
-                viewModelDatabase.addToCart(cartBody, productCount)
-                Toast.makeText(this@DetailProductActivity, "Add to Cart", Toast.LENGTH_SHORT).show()
-                builder?.dismiss()
+            v.buttonPlus.setOnClickListener {
+                productCount++
+                v.inputCount.setText(productCount.toString())
             }
-        }
 
-        buttonBack.setOnClickListener {
-            builder?.dismiss()
-        }
+            v.inputCount.addTextChangedListener(object : TextWatcher {
+                override fun beforeTextChanged(s: CharSequence?, start: Int, count: Int, after: Int) {
 
-        builder?.show()
+                }
+
+                override fun onTextChanged(s: CharSequence?, start: Int, before: Int, count: Int) {
+                }
+
+                override fun afterTextChanged(s: Editable?) {
+                    if ((s?.length ?: 0) >= 1) {
+                        val count = s?.toString()
+                        productCount = count?.toIntOrNull() ?: 1
+                    }
+                }
+            })
+
+            v.buttonAdd.setOnClickListener {
+                if (v.inputCount.text?.isEmpty() == true) {
+                    showToast("The number of products cannot be empty")
+                } else {
+                    cartBody.count = productCount
+                    viewModelDatabase.addToCart(cartBody, productCount)
+                    showToast("Add to Cart")
+                    dialog.dismiss()
+                }
+            }
+
+            v.buttonBack.setOnClickListener {
+                dialog.dismiss()
+            }
+            dialog.show()
+        }
     }
 }
