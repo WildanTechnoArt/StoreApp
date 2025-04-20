@@ -38,4 +38,8 @@
     <string name="default_product_count">1</string>
     <string name="action_back">Back</string>
     <string name="action_add">Add</string>
+    <string name="icon">icon_checkout</string>
+    <string name="title_transaction_success">Order Successful</string>
+    <string name="message_if_transaction_success">Payment will be processed immediately. If you have any questions please contact admin</string>
+    <string name="action_finish">Finish</string>
 </resources>

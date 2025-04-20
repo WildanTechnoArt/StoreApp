@@ -5,6 +5,7 @@ import android.content.Context
 import android.content.Intent
 import android.os.Bundle
 import android.view.LayoutInflater
+import android.view.View
 import android.view.ViewGroup
 import androidx.appcompat.app.AppCompatActivity
 import androidx.recyclerview.widget.RecyclerView
@@ -16,7 +17,8 @@ import com.wildan.storeapp.extensions.toRupiah
 import com.wildan.storeapp.ui.activity.DetailProductActivity
 import com.wildan.storeapp.utils.Constant
 
-class CartAdapter (private val deleteItem: (ProductEntity) -> Unit) : RecyclerView.Adapter<CartAdapter.Holder>() {
+class CartAdapter(private val isCheckout: Boolean, private val deleteItem: (ProductEntity) -> Unit) :
+    RecyclerView.Adapter<CartAdapter.Holder>() {
 
     private val dataList = mutableListOf<ProductEntity>() // Dataset adapter
 
@@ -52,11 +54,15 @@ class CartAdapter (private val deleteItem: (ProductEntity) -> Unit) : RecyclerVi
                 toDetailFragment(
                     data,
                     DetailProductActivity::class.java,
-                    it.context)
+                    it.context
+                )
             }
 
-            btnDelete.setOnClickListener {
-                deleteItem(data)
+            if (!isCheckout) {
+                btnDelete.visibility = View.VISIBLE
+                btnDelete.setOnClickListener {
+                    deleteItem(data)
+                }
             }
         }
     }

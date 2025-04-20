@@ -18,6 +18,12 @@ class DatabaseViewModel(private val repository: DatabaseRepository) : ViewModel(
         }
     }
 
+    fun clearCart(){
+        viewModelScope.launch {
+            repository.clearCart()
+        }
+    }
+
     fun addToCart(data: ProductEntity, qty: Int) {
         viewModelScope.launch {
             val isAddCart = repository.checkIfAddCart(data.id)

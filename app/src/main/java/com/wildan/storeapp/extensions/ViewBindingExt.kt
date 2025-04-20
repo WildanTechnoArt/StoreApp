@@ -16,7 +16,7 @@ object ViewBindingExt {
     }
 
     inline fun <T : ViewBinding> Context.createAlertDialog(
-        title: String,
+        title: String?,
         crossinline bindingInflater: (LayoutInflater) -> T,
         dialogBuilder: (T, AlertDialog) -> Unit
     ): AlertDialog {
@@ -24,6 +24,7 @@ object ViewBindingExt {
         val dialog = MaterialAlertDialogBuilder(this)
             .setTitle(title)
             .setView(binding.root)
+            .setCancelable(false)
             .create()
 
         dialogBuilder(binding, dialog)

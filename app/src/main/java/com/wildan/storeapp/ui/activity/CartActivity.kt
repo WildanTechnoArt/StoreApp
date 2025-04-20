@@ -29,13 +29,13 @@ class CartActivity : AppCompatActivity() {
         viewModelDatabase =
             ViewModelProvider(this, factory)[DatabaseViewModel::class.java]
 
-        mAdapter = CartAdapter { product ->
+        mAdapter = CartAdapter(false) { product ->
             showAlertDialog("Are you sure you want to remove?") {
                 viewModelDatabase.removeFromCart(product)
             }
         }
 
-        binding.rvArticles.apply {
+        binding.rvProduct.apply {
             setHasFixedSize(false)
             layoutManager = LinearLayoutManager(this@CartActivity)
             adapter = mAdapter
@@ -47,10 +47,10 @@ class CartActivity : AppCompatActivity() {
 
                 val itemCount = pagingData.size
                 if (itemCount > 0) {
-                    binding.rvArticles.visibility = View.VISIBLE
+                    binding.rvProduct.visibility = View.VISIBLE
                     binding.textMessage.visibility = View.GONE
                 } else {
-                    binding.rvArticles.visibility = View.GONE
+                    binding.rvProduct.visibility = View.GONE
                     binding.textMessage.visibility = View.VISIBLE
                 }
             }

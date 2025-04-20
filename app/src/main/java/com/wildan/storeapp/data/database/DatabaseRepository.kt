@@ -2,7 +2,6 @@ package com.wildan.storeapp.data.database
 
 import android.content.Context
 import androidx.lifecycle.LiveData
-import com.wildan.storeapp.extensions.showToast
 
 class DatabaseRepository private constructor(private val dataDao: DataDao) {
 
@@ -22,6 +21,8 @@ class DatabaseRepository private constructor(private val dataDao: DataDao) {
     fun getTotalItemCount(): LiveData<Int> = dataDao.getTotalItemCount()
 
     suspend fun addCart(data: ProductEntity) = dataDao.addCart(data)
+
+    suspend fun clearCart() = dataDao.clearCart()
 
     suspend fun checkIfAddCart(id: Int?) = dataDao.isProductCart(id)
 

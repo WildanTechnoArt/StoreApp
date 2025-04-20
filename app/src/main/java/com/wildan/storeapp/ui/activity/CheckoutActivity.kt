@@ -1,21 +1,65 @@
 package com.wildan.storeapp.ui.activity
 
 import android.os.Bundle
-import androidx.activity.enableEdgeToEdge
 import androidx.appcompat.app.AppCompatActivity
-import androidx.core.view.ViewCompat
-import androidx.core.view.WindowInsetsCompat
-import com.wildan.storeapp.R
+import androidx.lifecycle.ViewModelProvider
+import androidx.lifecycle.lifecycleScope
+import androidx.recyclerview.widget.LinearLayoutManager
+import com.wildan.storeapp.databinding.ActivityCheckoutBinding
+import com.wildan.storeapp.databinding.AlertTransactionSuccessBinding
+import com.wildan.storeapp.databinding.DialogInsertQuantityBinding
+import com.wildan.storeapp.extensions.ViewBindingExt.createAlertDialog
+import com.wildan.storeapp.extensions.ViewBindingExt.viewBinding
+import com.wildan.storeapp.extensions.showAlertDialog
+import com.wildan.storeapp.ui.adapter.CartAdapter
+import com.wildan.storeapp.ui.viewmodel.DatabaseViewModel
+import com.wildan.storeapp.ui.viewmodel.LocalDataViewModelFactory
+import kotlinx.coroutines.launch
+import kotlin.properties.Delegates
 
 class CheckoutActivity : AppCompatActivity() {
+
+    private val binding by viewBinding(ActivityCheckoutBinding::inflate)
+    private lateinit var viewModelDatabase: DatabaseViewModel
+    private var mAdapter by Delegates.notNull<CartAdapter>()
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        enableEdgeToEdge()
-        setContentView(R.layout.activity_checkout)
-        ViewCompat.setOnApplyWindowInsetsListener(findViewById(R.id.main)) { v, insets ->
-            val systemBars = insets.getInsets(WindowInsetsCompat.Type.systemBars())
-            v.setPadding(systemBars.left, systemBars.top, systemBars.right, systemBars.bottom)
-            insets
+
+        val factory = LocalDataViewModelFactory.getInstance(this)
+        viewModelDatabase =
+            ViewModelProvider(this, factory)[DatabaseViewModel::class.java]
+
+        mAdapter = CartAdapter(false) { product ->
+            showAlertDialog("Are you sure you want to remove?") {
+                viewModelDatabase.removeFromCart(product)
+            }
+        }
+
+        binding.rvProduct.apply {
+            setHasFixedSize(true)
+            layoutManager = LinearLayoutManager(this@CheckoutActivity)
+            adapter = mAdapter
+        }
+
+        viewModelDatabase.allData.observe(this) { pagingData ->
+            lifecycleScope.launch {
+                mAdapter.submitList(pagingData)
+            }
+        }
+
+        binding.btnCheckout.setOnClickListener {
+            showAlertDialog("Are you sure you want to place an order now?\nYour order will be processed."){
+                createAlertDialog(null, AlertTransactionSuccessBinding::inflate){ v, dialog ->
+                    v.btnFinish.setOnClickListener {
+                        lifecycleScope.launch {
+                            viewModelDatabase.clearCart()
+                            finish()
+                        }
+                    }
+                    dialog.show()
+                }
+            }
         }
     }
 }

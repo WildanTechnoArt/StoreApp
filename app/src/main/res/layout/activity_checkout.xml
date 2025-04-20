@@ -7,4 +7,152 @@
     android:layout_height="match_parent"
     tools:context=".ui.activity.CheckoutActivity">
 
+    <com.google.android.material.appbar.AppBarLayout
+        android:id="@+id/appBarLayout"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
+
+        <com.google.android.material.appbar.MaterialToolbar
+            android:id="@+id/toolbar"
+            android:layout_width="match_parent"
+            android:layout_height="?attr/actionBarSize"
+            app:titleCentered="true"
+            android:background="@android:color/white"
+            app:title="Checkout"
+            app:titleTextAppearance="@style/TextAppearance.AppCompat.Title" />
+
+    </com.google.android.material.appbar.AppBarLayout>
+
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/rvProduct"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:layout_margin="@dimen/item_margin"
+        app:layout_constraintBottom_toTopOf="@+id/lineProduct"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/appBarLayout" />
+
+    <com.google.android.material.divider.MaterialDivider
+        android:id="@+id/lineProduct"
+        android:layout_width="0dp"
+        android:layout_marginBottom="@dimen/margin_field"
+        android:layout_height="wrap_content"
+        app:layout_constraintBottom_toTopOf="@+id/tvSubtotal"
+        app:layout_constraintEnd_toEndOf="@+id/btnCheckout"
+        app:layout_constraintStart_toStartOf="@+id/btnCheckout" />
+
+    <com.google.android.material.textview.MaterialTextView
+        android:id="@+id/tvSubtotal"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="@dimen/margin_field"
+        android:text="Subtotal"
+        android:textColor="@android:color/black"
+        app:layout_constraintBottom_toTopOf="@+id/tvAdmin"
+        app:layout_constraintEnd_toStartOf="@+id/tvSubtotalPrice"
+        app:layout_constraintStart_toStartOf="@+id/btnCheckout" />
+
+    <com.google.android.material.textview.MaterialTextView
+        android:id="@+id/tvSubtotalPrice"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Rp0"
+        android:textColor="@android:color/black"
+        app:layout_constraintBottom_toBottomOf="@+id/tvSubtotal"
+        app:layout_constraintEnd_toEndOf="@+id/btnCheckout"
+        app:layout_constraintTop_toTopOf="@+id/tvSubtotal" />
+
+    <com.google.android.material.textview.MaterialTextView
+        android:id="@+id/tvAdmin"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="@dimen/margin_field"
+        android:text="Admin Fee"
+        android:textColor="@android:color/black"
+        app:layout_constraintBottom_toTopOf="@+id/tvPriceShipping"
+        app:layout_constraintEnd_toStartOf="@+id/tvPriceShipping"
+        app:layout_constraintStart_toStartOf="@+id/btnCheckout" />
+
+    <com.google.android.material.textview.MaterialTextView
+        android:id="@+id/tvAdminFee"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Rp0"
+        android:textColor="@android:color/black"
+        app:layout_constraintBottom_toBottomOf="@+id/tvAdmin"
+        app:layout_constraintEnd_toEndOf="@+id/btnCheckout"
+        app:layout_constraintTop_toTopOf="@+id/tvAdmin" />
+
+    <com.google.android.material.textview.MaterialTextView
+        android:id="@+id/tvShipping"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="@dimen/margin_field"
+        android:text="Shipping"
+        android:textColor="@android:color/black"
+        app:layout_constraintBottom_toTopOf="@+id/lineTotal"
+        app:layout_constraintEnd_toStartOf="@+id/tvPriceShipping"
+        app:layout_constraintStart_toStartOf="@+id/btnCheckout" />
+
+    <com.google.android.material.textview.MaterialTextView
+        android:id="@+id/tvPriceShipping"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Rp0"
+        android:textColor="@android:color/black"
+        app:layout_constraintBottom_toBottomOf="@+id/tvShipping"
+        app:layout_constraintEnd_toEndOf="@+id/btnCheckout"
+        app:layout_constraintTop_toTopOf="@+id/tvShipping" />
+
+    <com.google.android.material.divider.MaterialDivider
+        android:id="@+id/lineTotal"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="@dimen/margin_field"
+        app:layout_constraintBottom_toTopOf="@+id/tvTotal"
+        app:layout_constraintEnd_toEndOf="@+id/btnCheckout"
+        app:layout_constraintStart_toStartOf="@+id/btnCheckout" />
+
+    <com.google.android.material.textview.MaterialTextView
+        android:id="@+id/tvTotal"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="16dp"
+        android:text="Total"
+        android:textColor="@android:color/black"
+        android:textSize="@dimen/margin_field"
+        android:textStyle="bold"
+        app:layout_constraintBottom_toTopOf="@+id/btnCheckout"
+        app:layout_constraintEnd_toStartOf="@+id/tvTotalPrice"
+        app:layout_constraintStart_toStartOf="@+id/btnCheckout" />
+
+    <com.google.android.material.textview.MaterialTextView
+        android:id="@+id/tvTotalPrice"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Rp0"
+        android:textColor="@android:color/black"
+        android:textSize="16sp"
+        android:textStyle="bold"
+        app:layout_constraintBottom_toBottomOf="@+id/tvTotal"
+        app:layout_constraintEnd_toEndOf="@+id/btnCheckout"
+        app:layout_constraintTop_toTopOf="@+id/tvTotal" />
+
+    <!-- Tombol Checkout -->
+    <com.google.android.material.button.MaterialButton
+        android:id="@+id/btnCheckout"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_margin="20dp"
+        android:backgroundTint="@android:color/holo_green_dark"
+        android:text="Place Order"
+        android:textColor="@android:color/white"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent" />
+
 </androidx.constraintlayout.widget.ConstraintLayout>

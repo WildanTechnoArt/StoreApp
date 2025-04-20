@@ -18,6 +18,9 @@ interface DataDao {
     @Insert(onConflict = OnConflictStrategy.REPLACE)
     suspend fun addCart(orders: ProductEntity): Long
 
+    @Query("DELETE FROM TableProducts")
+    suspend fun clearCart()
+
     @Delete
     suspend fun removeCart(data: ProductEntity)
 
