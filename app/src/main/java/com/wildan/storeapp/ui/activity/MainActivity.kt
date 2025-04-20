@@ -1,5 +1,6 @@
 package com.wildan.storeapp.ui.activity
 
+import android.annotation.SuppressLint
 import android.content.Intent
 import android.os.Bundle
 import android.view.View
@@ -42,7 +43,8 @@ class MainActivity : AppCompatActivity() {
         getLiveData()
     }
 
-    private fun setupView() = with(binding){
+    @SuppressLint("SetTextI18n")
+    private fun setupView() = with(binding) {
         translateAnimation = TranslateAnimation(0F, 0F, 0F, 0F).apply {
             duration = 200
             fillAfter = true
@@ -55,7 +57,13 @@ class MainActivity : AppCompatActivity() {
             ViewModelProvider(this@MainActivity, factory)[DatabaseViewModel::class.java]
 
         mAdapterProduct = ProductAdapter()
-        mAdapterCategory = CategoryAdapter()
+        mAdapterCategory = CategoryAdapter { category ->
+            if (category == "All") {
+                viewModel.getProductList()
+            } else {
+                viewModel.getProductByCategory(category)
+            }
+        }
 
         rvProduct.apply {
             setHasFixedSize(false)
@@ -65,7 +73,8 @@ class MainActivity : AppCompatActivity() {
 
         rvCategory.apply {
             setHasFixedSize(false)
-            layoutManager = LinearLayoutManager(this@MainActivity, LinearLayoutManager.HORIZONTAL, false)
+            layoutManager =
+                LinearLayoutManager(this@MainActivity, LinearLayoutManager.HORIZONTAL, false)
             adapter = mAdapterCategory
         }
 
@@ -77,8 +86,10 @@ class MainActivity : AppCompatActivity() {
         }
 
         lifecycleScope.launch {
-            val username = MyApp.getInstance().readAuthDataStore(this@MainActivity,
-                Constant.SAVE_USERNAME)
+            val username = MyApp.getInstance().readAuthDataStore(
+                this@MainActivity,
+                Constant.SAVE_USERNAME
+            )
             tvUsername.text = "Hello, $username"
         }
 
@@ -88,7 +99,7 @@ class MainActivity : AppCompatActivity() {
         }
     }
 
-    private fun requestContent(){
+    private fun requestContent() {
         viewModel.getProductList()
         viewModel.getCategoryList()
     }
@@ -102,7 +113,7 @@ class MainActivity : AppCompatActivity() {
                 )
             }
             getCategoryList.observe(this@MainActivity) { data ->
-                mAdapterCategory.submitList(data)
+                mAdapterCategory.submitCategoryList(data)
             }
             error.observe(this@MainActivity) {
                 handleErrorApi(it)
@@ -115,7 +126,7 @@ class MainActivity : AppCompatActivity() {
         viewModelDatabase.getTotalItemCount.observe(this@MainActivity) { count ->
             lifecycleScope.launch {
                 val itemCount = (count ?: 0) > 0
-                tvCartBadge.visibility = if(itemCount) View.VISIBLE else View.GONE
+                tvCartBadge.visibility = if (itemCount) View.VISIBLE else View.GONE
                 tvCartBadge.text = count.toString()
             }
         }

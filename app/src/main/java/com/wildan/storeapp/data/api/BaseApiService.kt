@@ -21,6 +21,12 @@ interface BaseApiService {
     suspend fun getProductList(): List<ProductResponse>
 
     @Headers("Accept: application/json")
+    @GET("products/category/{category}")
+    suspend fun getProductByCategory(
+        @Path("category") category: String
+    ): List<ProductResponse>
+
+    @Headers("Accept: application/json")
     @GET("products/{id}")
     suspend fun getProductDetail(
         @Path("id") id: String?,

@@ -1,5 +1,6 @@
 package com.wildan.storeapp.ui.activity
 
+import android.content.Intent
 import android.os.Bundle
 import android.view.View
 import androidx.appcompat.app.AppCompatActivity
@@ -54,6 +55,10 @@ class CartActivity : AppCompatActivity() {
                     binding.textMessage.visibility = View.VISIBLE
                 }
             }
+        }
+
+        binding.btnCheckout.setOnClickListener {
+            startActivity(Intent(this, CheckoutActivity::class.java))
         }
     }
 }

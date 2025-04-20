@@ -146,6 +146,23 @@ class ProductViewModel : ViewModel() {
         }
     }
 
+    fun getProductByCategory(category: String) {
+        viewModelScope.launch {
+            try {
+                repository.getProductByCategory(category)
+                    .flowOn(Dispatchers.IO)
+                    .onStart { _loading.value = true }
+                    .onCompletion { _loading.postValue(false) }
+                    .catch { errorHandle(it) }
+                    .collect {
+                        _getProductList.value = it
+                    }
+            } catch (e: Exception) {
+                errorHandle(e)
+            }
+        }
+    }
+
     private fun errorHandle(it: Throwable) {
         _loading.postValue(false)
         _error.postValue(it)

@@ -32,7 +32,7 @@
         android:layout_height="0dp"
         android:layout_margin="@dimen/item_margin"
         android:visibility="visible"
-        app:layout_constraintBottom_toTopOf="@+id/btnAddToCart"
+        app:layout_constraintBottom_toTopOf="@+id/btnCheckout"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/appBarLayout" />
@@ -51,7 +51,7 @@
 
     <!-- Tombol Checkout -->
     <com.google.android.material.button.MaterialButton
-        android:id="@+id/btnAddToCart"
+        android:id="@+id/btnCheckout"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_margin="20dp"

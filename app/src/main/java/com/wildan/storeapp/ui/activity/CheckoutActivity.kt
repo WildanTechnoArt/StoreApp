@@ -29,12 +29,13 @@ class CheckoutActivity : AppCompatActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+        setContentView(binding.root)
 
         val factory = LocalDataViewModelFactory.getInstance(this)
         viewModelDatabase =
             ViewModelProvider(this, factory)[DatabaseViewModel::class.java]
 
-        mAdapter = CartAdapter(false) { product ->
+        mAdapter = CartAdapter(true) { product ->
             showAlertDialog("Are you sure you want to remove?") {
                 viewModelDatabase.removeFromCart(product)
             }
@@ -57,6 +58,7 @@ class CheckoutActivity : AppCompatActivity() {
 
                 mTotalPrice = mSubtotal + mAdminFee + mShipping
                 binding.tvTotalPrice.text = mTotalPrice.toRupiah()
+                binding.tvSubtotalPrice.text = mSubtotal.toRupiah()
             }
         }
 

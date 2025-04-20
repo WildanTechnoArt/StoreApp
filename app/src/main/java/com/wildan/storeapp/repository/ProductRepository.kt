@@ -17,6 +17,11 @@ class ProductRepository(private val baseApi: BaseApiService) {
         emit(response)
     }
 
+    fun getProductByCategory(category: String) = flow {
+        val response = baseApi.getProductByCategory(category)
+        emit(response)
+    }
+
     fun getProductDetail(id: String) = flow {
         val response = baseApi.getProductDetail(id)
         emit(response)
