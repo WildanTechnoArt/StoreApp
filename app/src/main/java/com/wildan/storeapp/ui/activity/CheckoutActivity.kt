@@ -7,10 +7,10 @@ import androidx.lifecycle.lifecycleScope
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.wildan.storeapp.databinding.ActivityCheckoutBinding
 import com.wildan.storeapp.databinding.AlertTransactionSuccessBinding
-import com.wildan.storeapp.databinding.DialogInsertQuantityBinding
 import com.wildan.storeapp.extensions.ViewBindingExt.createAlertDialog
 import com.wildan.storeapp.extensions.ViewBindingExt.viewBinding
 import com.wildan.storeapp.extensions.showAlertDialog
+import com.wildan.storeapp.extensions.toRupiah
 import com.wildan.storeapp.ui.adapter.CartAdapter
 import com.wildan.storeapp.ui.viewmodel.DatabaseViewModel
 import com.wildan.storeapp.ui.viewmodel.LocalDataViewModelFactory
@@ -22,6 +22,10 @@ class CheckoutActivity : AppCompatActivity() {
     private val binding by viewBinding(ActivityCheckoutBinding::inflate)
     private lateinit var viewModelDatabase: DatabaseViewModel
     private var mAdapter by Delegates.notNull<CartAdapter>()
+    private val mAdminFee = 2000.0
+    private val mShipping = 15000.0
+    private var mSubtotal = 0.0
+    private var mTotalPrice = 0.0
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -36,6 +40,8 @@ class CheckoutActivity : AppCompatActivity() {
             }
         }
 
+
+
         binding.rvProduct.apply {
             setHasFixedSize(true)
             layoutManager = LinearLayoutManager(this@CheckoutActivity)
@@ -45,6 +51,12 @@ class CheckoutActivity : AppCompatActivity() {
         viewModelDatabase.allData.observe(this) { pagingData ->
             lifecycleScope.launch {
                 mAdapter.submitList(pagingData)
+                pagingData.forEach {
+                    mSubtotal += it.price?.times(it.count ?: 1) ?: 0.0
+                }
+
+                mTotalPrice = mSubtotal + mAdminFee + mShipping
+                binding.tvTotalPrice.text = mTotalPrice.toRupiah()
             }
         }
 

@@ -20,7 +20,7 @@ import com.wildan.storeapp.utils.Constant
 class CartAdapter(private val isCheckout: Boolean, private val deleteItem: (ProductEntity) -> Unit) :
     RecyclerView.Adapter<CartAdapter.Holder>() {
 
-    private val dataList = mutableListOf<ProductEntity>() // Dataset adapter
+    private val dataList = mutableListOf<ProductEntity>()
 
     @SuppressLint("NotifyDataSetChanged")
     fun submitList(newData: List<ProductEntity>) {
