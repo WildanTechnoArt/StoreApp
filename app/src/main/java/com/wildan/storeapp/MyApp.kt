@@ -2,7 +2,6 @@ package com.wildan.storeapp
 
 import android.app.Application
 import android.content.Context
-import android.content.SharedPreferences
 import androidx.datastore.core.DataStore
 import androidx.datastore.preferences.core.Preferences
 import androidx.datastore.preferences.core.booleanPreferencesKey
@@ -56,7 +55,6 @@ class MyApp : Application() {
                 it.clear()
             }
         }
-
 
     suspend fun readStringDataStore(context: Context, key: String): String = context.dataStore.data
         .catch { emit(emptyPreferences()) }

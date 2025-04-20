@@ -9,6 +9,7 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import com.wildan.storeapp.databinding.ActivityCartBinding
 import com.wildan.storeapp.ui.adapter.CartAdapter
 import com.wildan.storeapp.extensions.ViewBindingExt.viewBinding
+import com.wildan.storeapp.extensions.showAlertDialog
 import com.wildan.storeapp.ui.viewmodel.DatabaseViewModel
 import com.wildan.storeapp.ui.viewmodel.LocalDataViewModelFactory
 import kotlinx.coroutines.launch
@@ -29,7 +30,9 @@ class CartActivity : AppCompatActivity() {
             ViewModelProvider(this, factory)[DatabaseViewModel::class.java]
 
         mAdapter = CartAdapter { product ->
-            viewModelDatabase.removeFromCart(product)
+            showAlertDialog("Are you sure you want to remove?") {
+                viewModelDatabase.removeFromCart(product)
+            }
         }
 
         binding.rvArticles.apply {

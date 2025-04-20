@@ -11,6 +11,6 @@ fun String.isValidPhoneNumber(): Boolean {
     return this.matches(Regex("^(\\+\\d{1,3}|0)\\d{9,15}$"))
 }
 
-fun String.isNotEmpty(): Boolean {
+fun String?.isNotEmpty(): Boolean {
     return !TextUtils.isEmpty(this)
 }

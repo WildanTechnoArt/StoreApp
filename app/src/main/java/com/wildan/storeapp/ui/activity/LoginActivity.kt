@@ -93,38 +93,54 @@ class LoginActivity : AppCompatActivity() {
 
     private fun requestLogin() = with(binding) {
         lifecycleScope.launch {
+            val database = MyApp.getInstance()
             val isRemember = cbxRememberMe.isChecked
             val username = inputUsername.text.toString()
             val password = inputPassword.text.toString()
 
-            if (username.isNotEmpty() && password.isNotEmpty()) {
-                val body = LoginRequest()
-                body.username = username
-                body.password = password
+            val loginUsername =
+                database.readStringDataStore(this@LoginActivity, Constant.SAVE_USERNAME)
+            val loginPassword =
+                database.readStringDataStore(this@LoginActivity, Constant.SAVE_PASSWORD)
 
-                viewModelAuth.requestLogin(this@LoginActivity, body, isRemember)
+            if (username.isNotEmpty() && password.isNotEmpty()) {
+                if (username == loginUsername && password == loginPassword) {
+                    // Login With Local Database
+                    loginSuccess("xx1234_sample_token")
+                } else {
+                    // Login with API Server
+                    val body = LoginRequest()
+                    body.username = username
+                    body.password = password
+
+                    viewModelAuth.requestLogin(this@LoginActivity, body, isRemember)
+                }
             } else {
                 showToast(getString(R.string.message_if_login_empty))
             }
         }
     }
 
+    private fun loginSuccess(token: String?) {
+        lifecycleScope.launch {
+            withContext(Dispatchers.Default) {
+                MyApp.getInstance().saveStringDataStore(
+                    this@LoginActivity, Constant.SAVE_TOKEN,
+                    token.toString()
+                )
+            }
+            if (!binding.cbxRememberMe.isChecked) {
+                MyApp.getInstance().clearAuthStore(this@LoginActivity)
+            }
+            startActivity(Intent(this@LoginActivity, MainActivity::class.java))
+            finish()
+        }
+    }
+
     private fun getLiveData() = with(binding) {
         viewModelAuth.apply {
             getDataLogin.observe(this@LoginActivity) { token ->
-                lifecycleScope.launch {
-                    withContext(Dispatchers.Default) {
-                        MyApp.getInstance().saveStringDataStore(
-                            this@LoginActivity, Constant.SAVE_TOKEN,
-                            token.toString()
-                        )
-                    }
-                    if (!cbxRememberMe.isChecked) {
-                        MyApp.getInstance().clearAuthStore(this@LoginActivity)
-                    }
-                    startActivity(Intent(this@LoginActivity, MainActivity::class.java))
-                    finish()
-                }
+                loginSuccess(token)
             }
             error.observe(this@LoginActivity) {
                 handleErrorApi(it)
