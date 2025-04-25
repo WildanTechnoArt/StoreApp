@@ -21,8 +21,10 @@ import com.wildan.storeapp.model.RegisterRequest
 import com.wildan.storeapp.ui.viewmodel.ProductViewModel
 import com.wildan.storeapp.utils.Constant
 import com.wildan.storeapp.utils.handleErrorApi
+import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.launch
 
+@AndroidEntryPoint
 class RegisterActivity : AppCompatActivity() {
 
     private val binding by viewBinding(ActivityRegisterBinding::inflate)
@@ -45,6 +47,11 @@ class RegisterActivity : AppCompatActivity() {
             mUsername = inputUsername.text.toString()
             mPassword = inputPassword.text.toString()
             val email = inputEmail.text.toString()
+
+            lifecycleScope.launch {
+                MyApp.getInstance().saveStringDataStore(this@RegisterActivity, Constant.SAVE_USERNAME, mUsername)
+                MyApp.getInstance().saveStringDataStore(this@RegisterActivity, Constant.SAVE_PASSWORD, mPassword)
+            }
 
             if (mUsername.isNotEmpty() && mPassword.isNotEmpty()) {
                 if (email.isValidEmail()) {

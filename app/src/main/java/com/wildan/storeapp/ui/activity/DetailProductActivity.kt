@@ -26,7 +26,9 @@ import com.wildan.storeapp.ui.viewmodel.DatabaseViewModel
 import com.wildan.storeapp.ui.viewmodel.LocalDataViewModelFactory
 import com.wildan.storeapp.ui.viewmodel.ProductViewModel
 import com.wildan.storeapp.utils.handleErrorApi
+import dagger.hilt.android.AndroidEntryPoint
 
+@AndroidEntryPoint
 class DetailProductActivity : AppCompatActivity() {
 
     private val binding by viewBinding(ActivityDetailProductBinding::inflate)

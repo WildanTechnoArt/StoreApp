@@ -23,9 +23,11 @@ import com.wildan.storeapp.ui.viewmodel.ProductViewModel
 import com.wildan.storeapp.utils.Constant
 import com.wildan.storeapp.utils.handleData
 import com.wildan.storeapp.utils.handleErrorApi
+import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.launch
 import kotlin.properties.Delegates
 
+@AndroidEntryPoint
 class MainActivity : AppCompatActivity() {
 
     private val binding by viewBinding(ActivityMainBinding::inflate)
@@ -86,7 +88,7 @@ class MainActivity : AppCompatActivity() {
         }
 
         lifecycleScope.launch {
-            val username = MyApp.getInstance().readAuthDataStore(
+            val username = MyApp.getInstance().readStringDataStore(
                 this@MainActivity,
                 Constant.SAVE_USERNAME
             )

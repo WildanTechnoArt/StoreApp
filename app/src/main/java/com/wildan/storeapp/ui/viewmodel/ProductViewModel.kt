@@ -9,21 +9,21 @@ import com.wildan.storeapp.MyApp
 import com.wildan.storeapp.model.LoginRequest
 import com.wildan.storeapp.model.ProductResponse
 import com.wildan.storeapp.model.RegisterRequest
-import com.wildan.storeapp.data.api.RetrofitClient
 import com.wildan.storeapp.repository.ProductRepository
 import com.wildan.storeapp.utils.Constant
+import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.catch
 import kotlinx.coroutines.flow.flowOn
 import kotlinx.coroutines.flow.onCompletion
 import kotlinx.coroutines.flow.onStart
 import kotlinx.coroutines.launch
+import javax.inject.Inject
 
-class ProductViewModel : ViewModel() {
-
-    private val repository: ProductRepository by lazy {
-        ProductRepository(RetrofitClient.instance)
-    }
+@HiltViewModel
+class ProductViewModel @Inject constructor(
+    private val repository: ProductRepository
+) : ViewModel() {
 
     private val _getCategoryList = MutableLiveData<List<String>>()
     val getCategoryList: LiveData<List<String>> = _getCategoryList

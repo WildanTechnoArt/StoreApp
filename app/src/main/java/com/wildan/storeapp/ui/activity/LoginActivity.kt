@@ -22,10 +22,12 @@ import com.wildan.storeapp.extensions.isNotEmpty
 import com.wildan.storeapp.ui.viewmodel.ProductViewModel
 import com.wildan.storeapp.extensions.showToast
 import com.wildan.storeapp.utils.handleErrorApi
+import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
 
+@AndroidEntryPoint
 class LoginActivity : AppCompatActivity() {
 
     private val binding by viewBinding(ActivityLoginBinding::inflate)
@@ -57,7 +59,6 @@ class LoginActivity : AppCompatActivity() {
                 startActivity(Intent(this@LoginActivity, MainActivity::class.java))
                 finish()
             } else {
-                MyApp.getInstance().clearDataStore(this@LoginActivity)
                 binding.layoutLogin.visibility = View.VISIBLE
                 val isRemember = getLocalData.readRememberDataStore(
                     this@LoginActivity,

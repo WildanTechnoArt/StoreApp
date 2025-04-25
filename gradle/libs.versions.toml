@@ -1,8 +1,8 @@
 [versions]
-agp = "8.9.1"
-hiltAndroid = "2.43.2"
-kotlin = "1.9.21"
-ksp = "1.9.22-1.0.17"
+agp = "8.4.0"
+hiltAndroid = "2.56.1"
+kotlin = "2.1.0"
+ksp = "2.0.21-1.0.27"
 coreKtx = "1.13.1"
 preferences = "1.1.1"
 progressbutton = "2.1.0"
@@ -35,7 +35,6 @@ androidx-room-ktx = { module = "androidx.room:room-ktx", version.ref = "roomRunt
 androidx-room-paging = { module = "androidx.room:room-paging", version.ref = "roomRuntime" }
 hilt-android = { module = "com.google.dagger:hilt-android", version.ref = "hiltAndroid" }
 hilt-android-compiler = { module = "com.google.dagger:hilt-android-compiler", version.ref = "hiltAndroid" }
-hilt-android-gradle-plugin = { module = "com.google.dagger:hilt-android-gradle-plugin", version.ref = "hiltAndroid" }
 junit = { group = "junit", name = "junit", version.ref = "junit" }
 androidx-junit = { group = "androidx.test.ext", name = "junit", version.ref = "junitVersion" }
 androidx-espresso-core = { group = "androidx.test.espresso", name = "espresso-core", version.ref = "espressoCore" }
