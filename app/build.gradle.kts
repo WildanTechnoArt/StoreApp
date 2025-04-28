@@ -88,6 +88,7 @@ dependencies {
     implementation(libs.squareup.okhttp3.logging)
     implementation(libs.google.code.gson)
     testImplementation(libs.junit)
+    debugImplementation (libs.leakcanary.android)
     androidTestImplementation(libs.androidx.junit)
     androidTestImplementation(libs.androidx.espresso.core)
 }

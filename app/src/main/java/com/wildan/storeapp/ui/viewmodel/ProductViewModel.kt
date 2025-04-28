@@ -5,7 +5,7 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.wildan.storeapp.MyApp
+import com.wildan.storeapp.extensions.saveDataStore
 import com.wildan.storeapp.model.LoginRequest
 import com.wildan.storeapp.model.ProductResponse
 import com.wildan.storeapp.model.RegisterRequest
@@ -72,21 +72,9 @@ class ProductViewModel @Inject constructor(
                     .onCompletion { _loading.postValue(false) }
                     .catch { errorHandle(it) }
                     .collect {
-                        MyApp.getInstance().saveAuthDataStore(
-                            context, Constant.SAVE_USERNAME,
-                            body.username
-                        )
-
-                        MyApp.getInstance().saveAuthDataStore(
-                            context, Constant.SAVE_PASSWORD,
-                            body.password
-                        )
-
-                        MyApp.getInstance().saveRememberDataStore(
-                            context, Constant.IS_REMEMBER_LOGIN,
-                            isRemember
-                        )
-
+                        context.saveDataStore(Constant.SAVE_USERNAME, body.username, true)
+                        context.saveDataStore(Constant.SAVE_PASSWORD, body.password, true)
+                        context.saveDataStore(Constant.IS_REMEMBER_LOGIN, isRemember, true)
                         _getDataLogin.value = it.token
                     }
             } catch (e: Exception) {

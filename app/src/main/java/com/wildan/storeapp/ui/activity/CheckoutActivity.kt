@@ -30,7 +30,6 @@ class CheckoutActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(binding.root)
-
         val factory = LocalDataViewModelFactory.getInstance(this)
         viewModelDatabase =
             ViewModelProvider(this, factory)[DatabaseViewModel::class.java]
@@ -40,8 +39,6 @@ class CheckoutActivity : AppCompatActivity() {
                 viewModelDatabase.removeFromCart(product)
             }
         }
-
-
 
         binding.rvProduct.apply {
             setHasFixedSize(true)

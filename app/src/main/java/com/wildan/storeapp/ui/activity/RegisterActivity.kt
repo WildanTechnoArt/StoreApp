@@ -4,18 +4,16 @@ import android.content.Intent
 import android.os.Bundle
 import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
-import androidx.core.graphics.toColorInt
 import androidx.lifecycle.lifecycleScope
 import com.github.razir.progressbutton.attachTextChangeAnimator
 import com.github.razir.progressbutton.bindProgressButton
-import com.github.razir.progressbutton.hideProgress
-import com.github.razir.progressbutton.showProgress
-import com.wildan.storeapp.MyApp
 import com.wildan.storeapp.R
 import com.wildan.storeapp.databinding.ActivityRegisterBinding
 import com.wildan.storeapp.extensions.ViewBindingExt.viewBinding
 import com.wildan.storeapp.extensions.isNotEmpty
 import com.wildan.storeapp.extensions.isValidEmail
+import com.wildan.storeapp.extensions.saveDataStore
+import com.wildan.storeapp.extensions.setLoading
 import com.wildan.storeapp.extensions.showToast
 import com.wildan.storeapp.model.RegisterRequest
 import com.wildan.storeapp.ui.viewmodel.ProductViewModel
@@ -49,8 +47,8 @@ class RegisterActivity : AppCompatActivity() {
             val email = inputEmail.text.toString()
 
             lifecycleScope.launch {
-                MyApp.getInstance().saveStringDataStore(this@RegisterActivity, Constant.SAVE_USERNAME, mUsername)
-                MyApp.getInstance().saveStringDataStore(this@RegisterActivity, Constant.SAVE_PASSWORD, mPassword)
+                saveDataStore(Constant.SAVE_USERNAME, mUsername)
+                saveDataStore(Constant.SAVE_PASSWORD, mPassword)
             }
 
             if (mUsername.isNotEmpty() && mPassword.isNotEmpty()) {
@@ -71,12 +69,11 @@ class RegisterActivity : AppCompatActivity() {
     }
 
     private fun getLiveData() = with(binding) {
-        val database = MyApp.getInstance()
         viewModelAuth.apply {
             successRegister.observe(this@RegisterActivity) { message ->
                 lifecycleScope.launch {
-                    database.saveStringDataStore(this@RegisterActivity, Constant.SAVE_USERNAME, mUsername)
-                    database.saveStringDataStore(this@RegisterActivity, Constant.SAVE_PASSWORD, mPassword)
+                    saveDataStore(Constant.SAVE_USERNAME, mUsername)
+                    saveDataStore(Constant.SAVE_PASSWORD, mPassword)
                     showToast(message.toString())
                     startActivity(Intent(this@RegisterActivity, LoginActivity::class.java))
                     finish()
@@ -86,15 +83,7 @@ class RegisterActivity : AppCompatActivity() {
                 handleErrorApi(it)
             }
             loading.observe(this@RegisterActivity) {
-                if (it) {
-                    registerButton.isClickable = false
-                    registerButton.showProgress {
-                        progressColor = "#FFFFFF".toColorInt()
-                    }
-                } else {
-                    registerButton.isClickable = true
-                    registerButton.hideProgress("Register")
-                }
+                registerButton.setLoading(it)
             }
         }
     }

@@ -4,18 +4,17 @@ import android.annotation.SuppressLint
 import android.content.Intent
 import android.os.Bundle
 import android.view.View
-import android.view.animation.TranslateAnimation
 import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.lifecycleScope
 import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.LinearLayoutManager
-import com.wildan.storeapp.MyApp
 import com.wildan.storeapp.databinding.ActivityMainBinding
+import com.wildan.storeapp.extensions.ViewBindingExt.viewBinding
+import com.wildan.storeapp.extensions.getStringData
 import com.wildan.storeapp.ui.adapter.CategoryAdapter
 import com.wildan.storeapp.ui.adapter.ProductAdapter
-import com.wildan.storeapp.extensions.ViewBindingExt.viewBinding
 import com.wildan.storeapp.ui.fragment.ProfileBottomSheetFragment
 import com.wildan.storeapp.ui.viewmodel.DatabaseViewModel
 import com.wildan.storeapp.ui.viewmodel.LocalDataViewModelFactory
@@ -35,7 +34,6 @@ class MainActivity : AppCompatActivity() {
     private var mAdapterCategory by Delegates.notNull<CategoryAdapter>()
     private val viewModel: ProductViewModel by viewModels()
     private lateinit var viewModelDatabase: DatabaseViewModel
-    private lateinit var translateAnimation: TranslateAnimation
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -47,12 +45,6 @@ class MainActivity : AppCompatActivity() {
 
     @SuppressLint("SetTextI18n")
     private fun setupView() = with(binding) {
-        translateAnimation = TranslateAnimation(0F, 0F, 0F, 0F).apply {
-            duration = 200
-            fillAfter = true
-            isFillEnabled = true
-        }
-
         val factory = LocalDataViewModelFactory.getInstance(this@MainActivity)
 
         viewModelDatabase =
@@ -88,10 +80,7 @@ class MainActivity : AppCompatActivity() {
         }
 
         lifecycleScope.launch {
-            val username = MyApp.getInstance().readStringDataStore(
-                this@MainActivity,
-                Constant.SAVE_USERNAME
-            )
+            val username = getStringData(Constant.SAVE_USERNAME)
             tvUsername.text = "Hello, $username"
         }
 

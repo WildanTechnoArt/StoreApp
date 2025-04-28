@@ -8,8 +8,8 @@ import android.view.ViewGroup
 import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.lifecycleScope
 import com.google.android.material.bottomsheet.BottomSheetDialogFragment
-import com.wildan.storeapp.MyApp
 import com.wildan.storeapp.databinding.BottomSheetLayoutBinding
+import com.wildan.storeapp.extensions.clearAppDataStore
 import com.wildan.storeapp.extensions.showAlertDialog
 import com.wildan.storeapp.ui.activity.LoginActivity
 import com.wildan.storeapp.ui.viewmodel.DatabaseViewModel
@@ -39,7 +39,7 @@ class ProfileBottomSheetFragment : BottomSheetDialogFragment() {
         binding?.btnLogout?.setOnClickListener {
             requireActivity().showAlertDialog("Are you sure you want to leave?") {
                 lifecycleScope.launch {
-                    MyApp.getInstance().clearDataStore(requireActivity())
+                    requireActivity().clearAppDataStore()
                     viewModelDatabase.clearCart()
                     requireActivity().startActivity(
                         Intent(
