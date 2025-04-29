@@ -1,10 +1,13 @@
 [versions]
 agp = "8.4.0"
+coreTesting = "2.2.0"
 hiltAndroid = "2.56.1"
 kotlin = "2.1.0"
+kotlinxCoroutinesTest = "1.7.3"
 ksp = "2.0.21-1.0.27"
 coreKtx = "1.13.1"
 leakcanaryAndroid = "2.14"
+mockitoCore = "4.0.0"
 preferences = "1.1.1"
 progressbutton = "2.1.0"
 junit = "4.13.2"
@@ -32,14 +35,17 @@ swiperefresh = "1.1.0"
 
 [libraries]
 androidx-core-ktx = { group = "androidx.core", name = "core-ktx", version.ref = "coreKtx" }
+androidx-core-testing = { module = "androidx.arch.core:core-testing", version.ref = "coreTesting" }
 androidx-room-ktx = { module = "androidx.room:room-ktx", version.ref = "roomRuntime" }
 androidx-room-paging = { module = "androidx.room:room-paging", version.ref = "roomRuntime" }
 hilt-android = { module = "com.google.dagger:hilt-android", version.ref = "hiltAndroid" }
 hilt-android-compiler = { module = "com.google.dagger:hilt-android-compiler", version.ref = "hiltAndroid" }
+hilt-android-testing = { module = "com.google.dagger:hilt-android-testing", version.ref = "hiltAndroid" }
 junit = { group = "junit", name = "junit", version.ref = "junit" }
 androidx-junit = { group = "androidx.test.ext", name = "junit", version.ref = "junitVersion" }
 androidx-espresso-core = { group = "androidx.test.espresso", name = "espresso-core", version.ref = "espressoCore" }
 androidx-appcompat = { group = "androidx.appcompat", name = "appcompat", version.ref = "appcompat" }
+kotlinx-coroutines-test = { module = "org.jetbrains.kotlinx:kotlinx-coroutines-test", version.ref = "kotlinxCoroutinesTest" }
 leakcanary-android = { module = "com.squareup.leakcanary:leakcanary-android", version.ref = "leakcanaryAndroid" }
 material = { group = "com.google.android.material", name = "material", version.ref = "material" }
 androidx-activity = { group = "androidx.activity", name = "activity", version.ref = "activity" }
@@ -54,6 +60,8 @@ androidx-swiperefreshlayout = { group = "androidx.swiperefreshlayout", name = "s
 com-facebook-shimmer = { group = "com.facebook.shimmer", name = "shimmer", version.ref = "shimmer" }
 
 #Setup Navigation
+mockito-core = { module = "org.mockito:mockito-core", version.ref = "mockitoCore" }
+mockito-inline = { module = "org.mockito:mockito-inline", version.ref = "mockitoCore" }
 navigation-fragment = { group = "androidx.navigation", name = "navigation-fragment-ktx", version.ref = "navigation" }
 navigation-ui = { group = "androidx.navigation", name = "navigation-ui-ktx", version.ref = "navigation" }
 

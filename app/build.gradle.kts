@@ -75,6 +75,7 @@ dependencies {
     implementation(libs.com.facebook.shimmer)
     ksp(libs.github.bumptech.ksp)
     implementation(libs.hilt.android) // Hilt dependencies
+    implementation (libs.hilt.android.testing)
     ksp(libs.hilt.android.compiler) // Hilt annotation processor
     implementation(libs.androidx.lifecycle.common)
     implementation(libs.androidx.lifecycle.viewmodel)
@@ -90,5 +91,14 @@ dependencies {
     testImplementation(libs.junit)
     debugImplementation (libs.leakcanary.android)
     androidTestImplementation(libs.androidx.junit)
+    testImplementation (libs.mockito.core)
+    testImplementation (libs.mockito.inline)
+
+    // Hilt testing dependencies
+    testImplementation (libs.hilt.android.testing)
+    kspAndroidTest(libs.hilt.android.compiler)
+    testImplementation (libs.kotlinx.coroutines.test)
+    testImplementation (libs.androidx.core.testing)
+
     androidTestImplementation(libs.androidx.espresso.core)
 }

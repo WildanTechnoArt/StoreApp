@@ -1,16 +1,13 @@
 package com.wildan.storeapp.ui.viewmodel
 
-import android.content.Context
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.wildan.storeapp.extensions.saveDataStore
 import com.wildan.storeapp.model.LoginRequest
 import com.wildan.storeapp.model.ProductResponse
 import com.wildan.storeapp.model.RegisterRequest
 import com.wildan.storeapp.repository.ProductRepository
-import com.wildan.storeapp.utils.Constant
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.catch
@@ -63,7 +60,7 @@ class ProductViewModel @Inject constructor(
         }
     }
 
-    fun requestLogin(context: Context, body: LoginRequest, isRemember: Boolean) {
+    fun requestLogin(body: LoginRequest) {
         viewModelScope.launch {
             try {
                 repository.requestLogin(body)
@@ -72,9 +69,6 @@ class ProductViewModel @Inject constructor(
                     .onCompletion { _loading.postValue(false) }
                     .catch { errorHandle(it) }
                     .collect {
-                        context.saveDataStore(Constant.SAVE_USERNAME, body.username, true)
-                        context.saveDataStore(Constant.SAVE_PASSWORD, body.password, true)
-                        context.saveDataStore(Constant.IS_REMEMBER_LOGIN, isRemember, true)
                         _getDataLogin.value = it.token
                     }
             } catch (e: Exception) {

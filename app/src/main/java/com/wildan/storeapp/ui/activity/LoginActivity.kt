@@ -34,6 +34,9 @@ class LoginActivity : AppCompatActivity() {
     private val viewModelAuth: ProductViewModel by viewModels()
     private var loginUsername: String? = null
     private var loginPassword: String? = null
+    private var mUsername: String? = null
+    private var mPassword: String? = null
+    private var isRemember = false
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -74,7 +77,7 @@ class LoginActivity : AppCompatActivity() {
                 navigateToMain()
             } else {
                 layoutLogin.show()
-                val isRemember = getBooleanData(Constant.IS_REMEMBER_LOGIN)
+                isRemember = getBooleanData(Constant.IS_REMEMBER_LOGIN)
                 val getUsername = getStringData(Constant.SAVE_USERNAME, true)
                 val getPassword = getStringData(Constant.SAVE_PASSWORD, true)
                 cbxRememberMe.isChecked = isRemember
@@ -88,14 +91,14 @@ class LoginActivity : AppCompatActivity() {
 
     private fun setupLogin() = with(binding) {
         lifecycleScope.launch {
-            val username = inputUsername.text.toString()
-            val password = inputPassword.text.toString()
+            mUsername = inputUsername.text.toString()
+            mPassword = inputPassword.text.toString()
 
-            if (username.isNotEmpty() && password.isNotEmpty()) {
-                if (username == loginUsername && password == loginPassword) {
+            if (mUsername.isNotEmpty() && mPassword.isNotEmpty()) {
+                if (mUsername == loginUsername && mPassword == loginPassword) {
                     loginSuccess("xx1234_sample_token")
                 } else {
-                    loginWithServer(username, password)
+                    loginWithServer(mUsername, mPassword)
                 }
             } else {
                 showToast(getString(R.string.message_if_login_empty))
@@ -103,19 +106,22 @@ class LoginActivity : AppCompatActivity() {
         }
     }
 
-    private fun loginWithServer(username: String, password: String) {
-        val isRemember = binding.cbxRememberMe.isChecked
+    private fun loginWithServer(username: String?, password: String?) {
+        isRemember = binding.cbxRememberMe.isChecked
         val body = LoginRequest()
         body.username = username
         body.password = password
 
-        viewModelAuth.requestLogin(this@LoginActivity, body, isRemember)
+        viewModelAuth.requestLogin(body)
     }
 
     private fun loginSuccess(token: String?) {
         lifecycleScope.launch {
             withContext(Dispatchers.Default) {
                 saveDataStore(Constant.SAVE_TOKEN, token.toString())
+                saveDataStore(Constant.SAVE_USERNAME, mUsername, true)
+                saveDataStore(Constant.SAVE_PASSWORD, mPassword, true)
+                saveDataStore(Constant.IS_REMEMBER_LOGIN, isRemember, true)
             }
             if (!binding.cbxRememberMe.isChecked) {
                 clearAuthDataStore()
