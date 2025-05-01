@@ -22,7 +22,7 @@ import org.mockito.Mockito.mock
 import org.mockito.Mockito.`when`
 
 @OptIn(ExperimentalCoroutinesApi::class)
-class ProductViewModelTest {
+class LoginViewModelTest {
 
     @get:Rule
     val instantExecutorRule = InstantTaskExecutorRule()
