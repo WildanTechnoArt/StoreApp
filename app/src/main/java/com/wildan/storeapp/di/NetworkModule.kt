@@ -2,6 +2,7 @@ package com.wildan.storeapp.di
 
 import com.wildan.storeapp.data.api.BaseApiService
 import com.wildan.storeapp.data.api.RetrofitClient
+import com.wildan.storeapp.repository.AuthRepository
 import com.wildan.storeapp.repository.ProductRepository
 import dagger.Module
 import dagger.Provides
@@ -21,7 +22,13 @@ object NetworkModule {
 
     @Provides
     @Singleton
-    fun provideProductRepository(retrofitClient: BaseApiService): ProductRepository {
-        return ProductRepository(retrofitClient)
+    fun provideProductRepository(client: BaseApiService): ProductRepository {
+        return ProductRepository(client)
+    }
+
+    @Provides
+    @Singleton
+    fun provideAuthRepository(client: BaseApiService): AuthRepository {
+        return AuthRepository(client)
     }
 }

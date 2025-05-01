@@ -19,7 +19,7 @@ import com.wildan.storeapp.extensions.setLoading
 import com.wildan.storeapp.extensions.show
 import com.wildan.storeapp.extensions.showToast
 import com.wildan.storeapp.model.LoginRequest
-import com.wildan.storeapp.ui.viewmodel.ProductViewModel
+import com.wildan.storeapp.ui.viewmodel.AuthViewModel
 import com.wildan.storeapp.utils.Constant
 import com.wildan.storeapp.utils.handleErrorApi
 import dagger.hilt.android.AndroidEntryPoint
@@ -31,7 +31,7 @@ import kotlinx.coroutines.withContext
 class LoginActivity : AppCompatActivity() {
 
     private val binding by viewBinding(ActivityLoginBinding::inflate)
-    private val viewModelAuth: ProductViewModel by viewModels()
+    private val viewModelAuth: AuthViewModel by viewModels()
     private var loginUsername: String? = null
     private var loginPassword: String? = null
     private var mUsername: String? = null

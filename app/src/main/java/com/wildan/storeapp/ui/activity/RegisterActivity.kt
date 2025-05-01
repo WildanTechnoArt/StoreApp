@@ -16,7 +16,7 @@ import com.wildan.storeapp.extensions.saveDataStore
 import com.wildan.storeapp.extensions.setLoading
 import com.wildan.storeapp.extensions.showToast
 import com.wildan.storeapp.model.RegisterRequest
-import com.wildan.storeapp.ui.viewmodel.ProductViewModel
+import com.wildan.storeapp.ui.viewmodel.AuthViewModel
 import com.wildan.storeapp.utils.Constant
 import com.wildan.storeapp.utils.handleErrorApi
 import dagger.hilt.android.AndroidEntryPoint
@@ -26,7 +26,7 @@ import kotlinx.coroutines.launch
 class RegisterActivity : AppCompatActivity() {
 
     private val binding by viewBinding(ActivityRegisterBinding::inflate)
-    private val viewModelAuth: ProductViewModel by viewModels()
+    private val viewModelAuth: AuthViewModel by viewModels()
     private var mUsername: String? = null
     private var mPassword: String? = null
 

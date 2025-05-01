@@ -1,10 +1,10 @@
 package com.wildan.storeapp
+
 import androidx.arch.core.executor.testing.InstantTaskExecutorRule
-import androidx.lifecycle.Observer
 import com.wildan.storeapp.model.LoginRequest
 import com.wildan.storeapp.model.LoginResponse
-import com.wildan.storeapp.repository.ProductRepository
-import com.wildan.storeapp.ui.viewmodel.ProductViewModel
+import com.wildan.storeapp.repository.AuthRepository
+import com.wildan.storeapp.ui.viewmodel.AuthViewModel
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.ExperimentalCoroutinesApi
 import kotlinx.coroutines.flow.flowOf
@@ -14,30 +14,28 @@ import kotlinx.coroutines.test.resetMain
 import kotlinx.coroutines.test.runTest
 import kotlinx.coroutines.test.setMain
 import org.junit.After
+import org.junit.Assert.assertEquals
 import org.junit.Before
 import org.junit.Rule
 import org.junit.Test
 import org.mockito.Mockito.mock
-import org.mockito.Mockito.verify
 import org.mockito.Mockito.`when`
 
-@ExperimentalCoroutinesApi
+@OptIn(ExperimentalCoroutinesApi::class)
 class ProductViewModelTest {
 
     @get:Rule
     val instantExecutorRule = InstantTaskExecutorRule()
 
-    private lateinit var productViewModel: ProductViewModel
-    private lateinit var productRepository: ProductRepository
-
-    private val testDispatcher = StandardTestDispatcher()
+    private lateinit var viewModel: AuthViewModel
+    private lateinit var repository: AuthRepository
 
     @Before
     fun setUp() {
-        Dispatchers.setMain(testDispatcher)
+        Dispatchers.setMain(StandardTestDispatcher())
 
-        productRepository = mock(ProductRepository::class.java)
-        productViewModel = ProductViewModel(productRepository)
+        repository = mock(AuthRepository::class.java)
+        viewModel = AuthViewModel(repository)
     }
 
     @After
@@ -46,21 +44,16 @@ class ProductViewModelTest {
     }
 
     @Test
-    fun `test login success`() = runTest {
+    fun `when login success then token is emmit`() = runTest {
         val loginRequest = LoginRequest("wildan", "wildan12344")
-        val mockResponse = LoginResponse("sample_token")
+        val expectResponse = LoginResponse("sample_token")
 
-        `when`(productRepository.requestLogin(loginRequest)).thenReturn(flowOf(mockResponse))
+        `when`(repository.requestLogin(loginRequest)).thenReturn(flowOf(expectResponse))
 
-        productViewModel.requestLogin(loginRequest)
+        viewModel.requestLogin(loginRequest)
 
         advanceUntilIdle()
 
-        val observer = mock(Observer::class.java) as Observer<String?>
-        productViewModel.getDataLogin.observeForever(observer)
-
-        verify(observer).onChanged("sample_token")
-
-        productViewModel.getDataLogin.removeObserver(observer)
+        assertEquals(expectResponse.token, viewModel.getDataLogin.value)
     }
 }

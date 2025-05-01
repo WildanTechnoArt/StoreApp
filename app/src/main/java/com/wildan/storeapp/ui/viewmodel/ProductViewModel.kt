@@ -4,9 +4,7 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.wildan.storeapp.model.LoginRequest
 import com.wildan.storeapp.model.ProductResponse
-import com.wildan.storeapp.model.RegisterRequest
 import com.wildan.storeapp.repository.ProductRepository
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.Dispatchers
@@ -24,12 +22,6 @@ class ProductViewModel @Inject constructor(
 
     private val _getCategoryList = MutableLiveData<List<String>>()
     val getCategoryList: LiveData<List<String>> = _getCategoryList
-
-    private val _getDataLogin = MutableLiveData<String?>()
-    val getDataLogin: LiveData<String?> = _getDataLogin
-
-    private val _successRegister = MutableLiveData<String?>()
-    val successRegister: LiveData<String?> = _successRegister
 
     private val _getProductList = MutableLiveData<List<ProductResponse>>()
     val getProductList: LiveData<List<ProductResponse>> = _getProductList
@@ -53,40 +45,6 @@ class ProductViewModel @Inject constructor(
                     .catch { errorHandle(it) }
                     .collect {
                         _getCategoryList.value = it
-                    }
-            } catch (e: Exception) {
-                errorHandle(e)
-            }
-        }
-    }
-
-    fun requestLogin(body: LoginRequest) {
-        viewModelScope.launch {
-            try {
-                repository.requestLogin(body)
-                    .flowOn(Dispatchers.IO)
-                    .onStart { _loading.value = true }
-                    .onCompletion { _loading.postValue(false) }
-                    .catch { errorHandle(it) }
-                    .collect {
-                        _getDataLogin.value = it.token
-                    }
-            } catch (e: Exception) {
-                errorHandle(e)
-            }
-        }
-    }
-
-    fun registerUser(body: RegisterRequest) {
-        viewModelScope.launch {
-            try {
-                repository.registerUser(body)
-                    .flowOn(Dispatchers.IO)
-                    .onStart { _loading.value = true }
-                    .onCompletion { _loading.postValue(false) }
-                    .catch { errorHandle(it) }
-                    .collect {
-                        _successRegister.value = "Register Success"
                     }
             } catch (e: Exception) {
                 errorHandle(e)
