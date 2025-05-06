@@ -27,7 +27,6 @@ shimmer = "0.5.0"
 retrofit = "2.9.0"
 serialization = "1.6.3"
 lifecycleVersion = "2.8.7"
-interceptor = "5.0.0-alpha.3"
 gson = "2.10.1"
 navigation = "2.8.4"
 args_nav = "2.7.7"
@@ -91,7 +90,6 @@ com-squareup-retrofit = { group = "com.squareup.retrofit2", name = "retrofit", v
 com-squareup-gson = { group = "com.squareup.retrofit2", name = "converter-gson", version.ref = "retrofit" }
 com-squareup-rxjava2 = { group = "com.squareup.retrofit2", name = "adapter-rxjava2", version.ref = "retrofit" }
 org-jetbrains-serialization = { group = "org.jetbrains.kotlinx", name = "kotlinx-serialization-json", version.ref = "serialization" }
-squareup-okhttp3-logging = { group = "com.squareup.okhttp3", name = "logging-interceptor", version.ref = "interceptor" }
 google-code-gson = { group = "com.google.code.gson", name = "gson", version.ref = "gson" }
 
 [plugins]
