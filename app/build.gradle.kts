@@ -87,7 +87,7 @@ dependencies {
     implementation(libs.com.squareup.rxjava2)
     implementation(libs.org.jetbrains.serialization)
     implementation(libs.google.code.gson)
-    implementation(AndroidDependencies.HTTP_LOG)
+    implementation(libs.logging.interceptor)
     testImplementation(libs.junit)
     debugImplementation (libs.leakcanary.android)
     androidTestImplementation(libs.androidx.junit)
