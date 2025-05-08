@@ -19,7 +19,6 @@ import com.wildan.storeapp.extensions.toRupiah
 import com.wildan.storeapp.ui.viewmodel.DatabaseViewModel
 import com.wildan.storeapp.ui.viewmodel.LocalDataViewModelFactory
 import com.wildan.storeapp.ui.viewmodel.ProductViewModel
-import com.wildan.storeapp.utils.Constant
 import com.wildan.storeapp.utils.handleErrorApi
 import dagger.hilt.android.AndroidEntryPoint
 
@@ -39,7 +38,7 @@ class DetailProductActivity : AppCompatActivity() {
     }
 
     private fun setupView() = with(binding) {
-        productId = intent.getStringExtra(Constant.PRODUCT_ID)
+        productId = intent.getStringExtra(com.wildan.storeapp.utils.Constant.PRODUCT_ID)
         val factory = LocalDataViewModelFactory.getInstance(this@DetailProductActivity)
         viewModelDatabase =
             ViewModelProvider(this@DetailProductActivity, factory)[DatabaseViewModel::class.java]

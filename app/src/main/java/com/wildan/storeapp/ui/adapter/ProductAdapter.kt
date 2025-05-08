@@ -16,7 +16,6 @@ import com.wildan.storeapp.databinding.ItemProductBinding
 import com.wildan.storeapp.extensions.toRupiah
 import com.wildan.storeapp.model.ProductResponse
 import com.wildan.storeapp.ui.activity.DetailProductActivity
-import com.wildan.storeapp.utils.Constant
 
 class ProductAdapter : ListAdapter<ProductResponse, ProductAdapter.Holder>(MyDiffCallback()) {
 
@@ -55,7 +54,7 @@ class ProductAdapter : ListAdapter<ProductResponse, ProductAdapter.Holder>(MyDif
         activity: Class<out AppCompatActivity>,
         context: Context) {
         val bundle = Bundle().apply {
-            putString(Constant.PRODUCT_ID, data.id.toString())
+            putString(com.wildan.storeapp.utils.Constant.PRODUCT_ID, data.id.toString())
         }
         context.startActivity(Intent(context, activity).putExtras(bundle))
     }

@@ -8,8 +8,8 @@ import com.google.android.material.textview.MaterialTextView
 import com.google.gson.Gson
 import com.wildan.storeapp.R
 import com.wildan.storeapp.model.Response
-import com.wildan.storeapp.utils.NetworkUtil.isConnected
 import com.wildan.storeapp.extensions.showToast
+import com.wildan.storeapp.utils.NetworkUtil.isConnected
 import retrofit2.HttpException
 import java.net.SocketTimeoutException
 

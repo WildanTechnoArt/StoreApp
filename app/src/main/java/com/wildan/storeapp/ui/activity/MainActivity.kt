@@ -19,8 +19,6 @@ import com.wildan.storeapp.ui.fragment.ProfileBottomSheetFragment
 import com.wildan.storeapp.ui.viewmodel.DatabaseViewModel
 import com.wildan.storeapp.ui.viewmodel.LocalDataViewModelFactory
 import com.wildan.storeapp.ui.viewmodel.ProductViewModel
-import com.wildan.storeapp.utils.Constant
-import com.wildan.storeapp.utils.handleData
 import com.wildan.storeapp.utils.handleErrorApi
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.launch
@@ -80,7 +78,7 @@ class MainActivity : AppCompatActivity() {
         }
 
         lifecycleScope.launch {
-            val username = getStringData(Constant.SAVE_USERNAME)
+            val username = getStringData(com.wildan.storeapp.utils.Constant.SAVE_USERNAME)
             tvUsername.text = "Hello, $username"
         }
 
@@ -98,7 +96,7 @@ class MainActivity : AppCompatActivity() {
     private fun getLiveData() = with(binding) {
         viewModel.apply {
             getProductList.observe(this@MainActivity) { data ->
-                handleData(
+                com.wildan.storeapp.utils.handleData(
                     1, data, mAdapterProduct,
                     rvProduct, textMessageNoData
                 )

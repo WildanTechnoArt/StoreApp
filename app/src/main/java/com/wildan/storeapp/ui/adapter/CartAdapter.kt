@@ -15,7 +15,6 @@ import com.wildan.storeapp.data.database.ProductEntity
 import com.wildan.storeapp.databinding.ItemCartBinding
 import com.wildan.storeapp.extensions.toRupiah
 import com.wildan.storeapp.ui.activity.DetailProductActivity
-import com.wildan.storeapp.utils.Constant
 
 class CartAdapter(private val isCheckout: Boolean, private val deleteItem: (ProductEntity) -> Unit) :
     RecyclerView.Adapter<CartAdapter.Holder>() {
@@ -73,7 +72,7 @@ class CartAdapter(private val isCheckout: Boolean, private val deleteItem: (Prod
         context: Context
     ) {
         val bundle = Bundle().apply {
-            putString(Constant.PRODUCT_ID, data.id.toString())
+            putString(com.wildan.storeapp.utils.Constant.PRODUCT_ID, data.id.toString())
         }
         context.startActivity(Intent(context, activity).putExtras(bundle))
     }

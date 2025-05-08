@@ -44,7 +44,7 @@ android {
         }
         create("spreeDemo") {
             dimension = "api"
-            buildConfigField("String", "BASE_URL", "\"https://fakestoreapi.com/\"")
+            buildConfigField("String", "BASE_URL", "\"https://demo.spreecommerce.org/api/v2/\"")
             applicationIdSuffix = ".demo"
         }
     }
@@ -65,6 +65,7 @@ android {
 }
 
 dependencies {
+
     // Core AndroidX
     implementation(libs.androidx.core.ktx)
     implementation(libs.androidx.appcompat)
@@ -134,4 +135,7 @@ dependencies {
     // Hilt Testing (AndroidTest)
     androidTestImplementation(libs.hilt.android.testing)
     kspAndroidTest(libs.hilt.android.compiler)
+
+    // Import Module
+    implementation(project(":core"))
 }

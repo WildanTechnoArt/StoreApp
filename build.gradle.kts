@@ -5,4 +5,5 @@ plugins {
     alias(libs.plugins.google.devtools.ksp) apply false
     alias(libs.plugins.navigation.safe.args) apply false
     id("com.google.dagger.hilt.android") version "2.56.1" apply false
+    alias(libs.plugins.android.library) apply false
 }
