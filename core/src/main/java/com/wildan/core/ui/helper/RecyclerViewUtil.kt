@@ -1,4 +1,4 @@
-package com.wildan.core.utils
+package com.wildan.core.ui.helper
 
 import android.view.View
 import androidx.recyclerview.widget.ListAdapter

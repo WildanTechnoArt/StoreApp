@@ -1,4 +1,4 @@
-package com.wildan.core.extensions
+package com.wildan.core.extension
 
 import java.text.NumberFormat
 import java.util.Locale

@@ -1,4 +1,4 @@
-package com.wildan.core.extensions
+package com.wildan.core.extension
 
 import android.content.Context
 import android.content.DialogInterface

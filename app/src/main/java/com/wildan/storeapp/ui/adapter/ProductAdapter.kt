@@ -11,7 +11,7 @@ import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
-import com.wildan.core.extensions.toRupiah
+import com.wildan.core.extension.toRupiah
 import com.wildan.core.utils.Constant
 import com.wildan.storeapp.R
 import com.wildan.storeapp.databinding.ItemProductBinding

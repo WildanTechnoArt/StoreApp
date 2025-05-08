@@ -4,7 +4,7 @@ import androidx.fragment.app.FragmentActivity
 import com.wildan.core.R
 import com.wildan.core.error.AppError
 import com.wildan.core.error.ErrorMapper
-import com.wildan.core.extensions.showToast
+import com.wildan.core.extension.showToast
 import com.wildan.core.utils.NetworkUtil.isConnected
 
 fun FragmentActivity.handleErrorApi(error: Throwable) {

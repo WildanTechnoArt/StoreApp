@@ -10,10 +10,10 @@ import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.lifecycleScope
 import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.LinearLayoutManager
-import com.wildan.core.extensions.ViewBindingExt.viewBinding
-import com.wildan.core.extensions.getStringData
+import com.wildan.core.ui.helper.ViewBindingExt.viewBinding
+import com.wildan.core.extension.getStringData
 import com.wildan.core.utils.Constant
-import com.wildan.core.utils.handleData
+import com.wildan.core.ui.helper.handleData
 import com.wildan.core.utils.handleErrorApi
 import com.wildan.storeapp.databinding.ActivityMainBinding
 import com.wildan.storeapp.ui.adapter.CategoryAdapter

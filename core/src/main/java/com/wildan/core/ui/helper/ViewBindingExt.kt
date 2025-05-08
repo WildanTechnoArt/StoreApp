@@ -1,4 +1,4 @@
-package com.wildan.core.extensions
+package com.wildan.core.ui.helper
 
 import android.content.Context
 import android.view.LayoutInflater

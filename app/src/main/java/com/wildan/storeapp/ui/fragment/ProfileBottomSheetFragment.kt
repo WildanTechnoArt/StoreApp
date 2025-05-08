@@ -8,8 +8,8 @@ import android.view.ViewGroup
 import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.lifecycleScope
 import com.google.android.material.bottomsheet.BottomSheetDialogFragment
-import com.wildan.core.extensions.clearAppDataStore
-import com.wildan.core.extensions.showAlertDialog
+import com.wildan.core.extension.clearAppDataStore
+import com.wildan.core.extension.showAlertDialog
 import com.wildan.storeapp.databinding.BottomSheetLayoutBinding
 import com.wildan.storeapp.ui.activity.LoginActivity
 import com.wildan.storeapp.ui.viewmodel.DatabaseViewModel

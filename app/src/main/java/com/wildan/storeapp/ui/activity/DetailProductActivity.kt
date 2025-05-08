@@ -8,10 +8,10 @@ import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.ViewModelProvider
 import com.bumptech.glide.Glide
-import com.wildan.core.extensions.ViewBindingExt.createAlertDialog
-import com.wildan.core.extensions.ViewBindingExt.viewBinding
-import com.wildan.core.extensions.showToast
-import com.wildan.core.extensions.toRupiah
+import com.wildan.core.ui.helper.ViewBindingExt.createAlertDialog
+import com.wildan.core.ui.helper.ViewBindingExt.viewBinding
+import com.wildan.core.extension.showToast
+import com.wildan.core.extension.toRupiah
 import com.wildan.core.utils.Constant
 import com.wildan.core.utils.handleErrorApi
 import com.wildan.storeapp.R
