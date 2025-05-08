@@ -5,19 +5,18 @@ import android.os.Bundle
 import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.lifecycleScope
-import com.github.razir.progressbutton.attachTextChangeAnimator
-import com.github.razir.progressbutton.bindProgressButton
+import com.wildan.core.extensions.ViewBindingExt.viewBinding
+import com.wildan.core.extensions.initProgressButton
+import com.wildan.core.extensions.isValidEmail
+import com.wildan.core.extensions.saveDataStore
+import com.wildan.core.extensions.setLoading
+import com.wildan.core.extensions.showToast
+import com.wildan.core.utils.Constant
+import com.wildan.core.utils.handleErrorApi
 import com.wildan.storeapp.R
 import com.wildan.storeapp.databinding.ActivityRegisterBinding
-import com.wildan.storeapp.extensions.ViewBindingExt.viewBinding
-import com.wildan.storeapp.extensions.isNotEmpty
-import com.wildan.storeapp.extensions.isValidEmail
-import com.wildan.storeapp.extensions.saveDataStore
-import com.wildan.storeapp.extensions.setLoading
-import com.wildan.storeapp.extensions.showToast
 import com.wildan.storeapp.model.RegisterRequest
 import com.wildan.storeapp.ui.viewmodel.AuthViewModel
-import com.wildan.storeapp.utils.handleErrorApi
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.launch
 
@@ -26,8 +25,8 @@ class RegisterActivity : AppCompatActivity() {
 
     private val binding by viewBinding(ActivityRegisterBinding::inflate)
     private val viewModelAuth: AuthViewModel by viewModels()
-    private var mUsername: String? = null
-    private var mPassword: String? = null
+    private var mUsername = ""
+    private var mPassword = ""
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -37,8 +36,7 @@ class RegisterActivity : AppCompatActivity() {
     }
 
     private fun setupView() = with(binding) {
-        bindProgressButton(registerButton)
-        registerButton.attachTextChangeAnimator()
+        registerButton.initProgressButton(this@RegisterActivity)
 
         binding.registerButton.setOnClickListener {
             mUsername = inputUsername.text.toString()
@@ -46,8 +44,8 @@ class RegisterActivity : AppCompatActivity() {
             val email = inputEmail.text.toString()
 
             lifecycleScope.launch {
-                saveDataStore(com.wildan.storeapp.utils.Constant.SAVE_USERNAME, mUsername)
-                saveDataStore(com.wildan.storeapp.utils.Constant.SAVE_PASSWORD, mPassword)
+                saveDataStore(Constant.SAVE_USERNAME, mUsername)
+                saveDataStore(Constant.SAVE_PASSWORD, mPassword)
             }
 
             if (mUsername.isNotEmpty() && mPassword.isNotEmpty()) {
@@ -71,8 +69,8 @@ class RegisterActivity : AppCompatActivity() {
         viewModelAuth.apply {
             successRegister.observe(this@RegisterActivity) { message ->
                 lifecycleScope.launch {
-                    saveDataStore(com.wildan.storeapp.utils.Constant.SAVE_USERNAME, mUsername)
-                    saveDataStore(com.wildan.storeapp.utils.Constant.SAVE_PASSWORD, mPassword)
+                    saveDataStore(Constant.SAVE_USERNAME, mUsername)
+                    saveDataStore(Constant.SAVE_PASSWORD, mPassword)
                     showToast(message.toString())
                     startActivity(Intent(this@RegisterActivity, LoginActivity::class.java))
                     finish()

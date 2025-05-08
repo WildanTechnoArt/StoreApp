@@ -6,21 +6,21 @@ import android.view.inputmethod.EditorInfo
 import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.lifecycleScope
+import com.wildan.core.extensions.ViewBindingExt.viewBinding
+import com.wildan.core.extensions.clearAuthDataStore
+import com.wildan.core.extensions.getBooleanData
+import com.wildan.core.extensions.getStringData
+import com.wildan.core.extensions.initProgressButton
+import com.wildan.core.extensions.saveDataStore
+import com.wildan.core.extensions.setLoading
+import com.wildan.core.extensions.show
+import com.wildan.core.extensions.showToast
+import com.wildan.core.utils.Constant
+import com.wildan.core.utils.handleErrorApi
 import com.wildan.storeapp.R
 import com.wildan.storeapp.databinding.ActivityLoginBinding
-import com.wildan.storeapp.extensions.ViewBindingExt.viewBinding
-import com.wildan.storeapp.extensions.clearAuthDataStore
-import com.wildan.storeapp.extensions.getBooleanData
-import com.wildan.storeapp.extensions.getStringData
-import com.wildan.storeapp.extensions.initProgressButton
-import com.wildan.storeapp.extensions.isNotEmpty
-import com.wildan.storeapp.extensions.saveDataStore
-import com.wildan.storeapp.extensions.setLoading
-import com.wildan.storeapp.extensions.show
-import com.wildan.storeapp.extensions.showToast
 import com.wildan.storeapp.model.LoginRequest
 import com.wildan.storeapp.ui.viewmodel.AuthViewModel
-import com.wildan.storeapp.utils.handleErrorApi
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
@@ -33,8 +33,8 @@ class LoginActivity : AppCompatActivity() {
     private val viewModelAuth: AuthViewModel by viewModels()
     private var loginUsername: String? = null
     private var loginPassword: String? = null
-    private var mUsername: String? = null
-    private var mPassword: String? = null
+    private var mUsername = ""
+    private var mPassword = ""
     private var isRemember = false
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -47,8 +47,8 @@ class LoginActivity : AppCompatActivity() {
 
     private fun setupView() = with(binding) {
         lifecycleScope.launch {
-            loginUsername = getStringData(com.wildan.storeapp.utils.Constant.SAVE_USERNAME)
-            loginPassword = getStringData(com.wildan.storeapp.utils.Constant.SAVE_PASSWORD)
+            loginUsername = getStringData(Constant.SAVE_USERNAME)
+            loginPassword = getStringData(Constant.SAVE_PASSWORD)
         }
 
         registerButton.initProgressButton(this@LoginActivity)
@@ -70,15 +70,15 @@ class LoginActivity : AppCompatActivity() {
 
     private fun checkLoginCondition() = with(binding) {
         lifecycleScope.launch {
-            val getAccessToken = getStringData(com.wildan.storeapp.utils.Constant.SAVE_TOKEN)
+            val getAccessToken = getStringData(Constant.SAVE_TOKEN)
 
             if (getAccessToken != "-") {
                 navigateToMain()
             } else {
                 layoutLogin.show()
-                isRemember = getBooleanData(com.wildan.storeapp.utils.Constant.IS_REMEMBER_LOGIN)
-                val getUsername = getStringData(com.wildan.storeapp.utils.Constant.SAVE_USERNAME, true)
-                val getPassword = getStringData(com.wildan.storeapp.utils.Constant.SAVE_PASSWORD, true)
+                isRemember = getBooleanData(Constant.IS_REMEMBER_LOGIN)
+                val getUsername = getStringData(Constant.SAVE_USERNAME, true)
+                val getPassword = getStringData(Constant.SAVE_PASSWORD, true)
                 cbxRememberMe.isChecked = isRemember
                 if (isRemember) {
                     inputUsername.setText(getUsername)
@@ -117,10 +117,10 @@ class LoginActivity : AppCompatActivity() {
     private fun loginSuccess(token: String?) {
         lifecycleScope.launch {
             withContext(Dispatchers.Default) {
-                saveDataStore(com.wildan.storeapp.utils.Constant.SAVE_TOKEN, token.toString())
-                saveDataStore(com.wildan.storeapp.utils.Constant.SAVE_USERNAME, mUsername, true)
-                saveDataStore(com.wildan.storeapp.utils.Constant.SAVE_PASSWORD, mPassword, true)
-                saveDataStore(com.wildan.storeapp.utils.Constant.IS_REMEMBER_LOGIN, isRemember, true)
+                saveDataStore(Constant.SAVE_TOKEN, token.toString())
+                saveDataStore(Constant.SAVE_USERNAME, mUsername, true)
+                saveDataStore(Constant.SAVE_PASSWORD, mPassword, true)
+                saveDataStore(Constant.IS_REMEMBER_LOGIN, isRemember, true)
             }
             if (!binding.cbxRememberMe.isChecked) {
                 clearAuthDataStore()

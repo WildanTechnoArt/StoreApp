@@ -7,10 +7,10 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.lifecycleScope
 import androidx.recyclerview.widget.LinearLayoutManager
+import com.wildan.core.extensions.ViewBindingExt.viewBinding
+import com.wildan.core.extensions.showAlertDialog
 import com.wildan.storeapp.databinding.ActivityCartBinding
 import com.wildan.storeapp.ui.adapter.CartAdapter
-import com.wildan.storeapp.extensions.ViewBindingExt.viewBinding
-import com.wildan.storeapp.extensions.showAlertDialog
 import com.wildan.storeapp.ui.viewmodel.DatabaseViewModel
 import com.wildan.storeapp.ui.viewmodel.LocalDataViewModelFactory
 import kotlinx.coroutines.launch

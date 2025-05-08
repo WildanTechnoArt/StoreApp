@@ -11,9 +11,10 @@ import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
+import com.wildan.core.extensions.toRupiah
+import com.wildan.core.utils.Constant
 import com.wildan.storeapp.R
 import com.wildan.storeapp.databinding.ItemProductBinding
-import com.wildan.storeapp.extensions.toRupiah
 import com.wildan.storeapp.model.ProductResponse
 import com.wildan.storeapp.ui.activity.DetailProductActivity
 
@@ -54,7 +55,7 @@ class ProductAdapter : ListAdapter<ProductResponse, ProductAdapter.Holder>(MyDif
         activity: Class<out AppCompatActivity>,
         context: Context) {
         val bundle = Bundle().apply {
-            putString(com.wildan.storeapp.utils.Constant.PRODUCT_ID, data.id.toString())
+            putString(Constant.PRODUCT_ID, data.id.toString())
         }
         context.startActivity(Intent(context, activity).putExtras(bundle))
     }

@@ -77,7 +77,6 @@ dependencies {
     implementation(libs.material)
     implementation(libs.androidx.swiperefreshlayout)
     implementation(libs.com.facebook.shimmer)
-    implementation(libs.github.razir.progressbutton)
     implementation(libs.androidx.vectordrawable)
 
     // Lifecycle & ViewModel

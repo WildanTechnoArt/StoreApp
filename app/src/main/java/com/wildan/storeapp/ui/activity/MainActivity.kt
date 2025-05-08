@@ -10,16 +10,18 @@ import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.lifecycleScope
 import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.LinearLayoutManager
+import com.wildan.core.extensions.ViewBindingExt.viewBinding
+import com.wildan.core.extensions.getStringData
+import com.wildan.core.utils.Constant
+import com.wildan.core.utils.handleData
+import com.wildan.core.utils.handleErrorApi
 import com.wildan.storeapp.databinding.ActivityMainBinding
-import com.wildan.storeapp.extensions.ViewBindingExt.viewBinding
-import com.wildan.storeapp.extensions.getStringData
 import com.wildan.storeapp.ui.adapter.CategoryAdapter
 import com.wildan.storeapp.ui.adapter.ProductAdapter
 import com.wildan.storeapp.ui.fragment.ProfileBottomSheetFragment
 import com.wildan.storeapp.ui.viewmodel.DatabaseViewModel
 import com.wildan.storeapp.ui.viewmodel.LocalDataViewModelFactory
 import com.wildan.storeapp.ui.viewmodel.ProductViewModel
-import com.wildan.storeapp.utils.handleErrorApi
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.launch
 import kotlin.properties.Delegates
@@ -78,7 +80,7 @@ class MainActivity : AppCompatActivity() {
         }
 
         lifecycleScope.launch {
-            val username = getStringData(com.wildan.storeapp.utils.Constant.SAVE_USERNAME)
+            val username = getStringData(Constant.SAVE_USERNAME)
             tvUsername.text = "Hello, $username"
         }
 
@@ -96,7 +98,7 @@ class MainActivity : AppCompatActivity() {
     private fun getLiveData() = with(binding) {
         viewModel.apply {
             getProductList.observe(this@MainActivity) { data ->
-                com.wildan.storeapp.utils.handleData(
+                handleData(
                     1, data, mAdapterProduct,
                     rvProduct, textMessageNoData
                 )
